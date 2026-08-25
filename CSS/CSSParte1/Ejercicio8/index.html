@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio8</title>
+    <style>
+        body {
+            background-color: white;
+        }
+
+        .contenedor {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            border: 2px solid #444;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: lightslategrey;
+            box-sizing: border-box;
+        }
+
+        .columna {
+            background-color: #add6e8;
+            width: 220px;
+            padding: 15px;
+            box-sizing: border-box;
+            border: 2px solid #333;
+            border-radius: 6px;
+        }
+
+
+        #articulo1 {
+            background: radial-gradient(circle at center, #ffffff 0%, #e6a132 70%, #f0e5d8 100%);
+        }
+
+
+        #articulo2 {
+            background: linear-gradient(to right, #e6a132 70%, #e5d5b6 100%);
+        }
+
+
+        #articulo3 {
+            background: radial-gradient(circle at left, #e6a132 70%, #f0e5d8 100%);
+        }
+
+        .columna img {
+            width: 100%;
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Ejercicio8 CSS</h1>
+
+    <div class="contenedor">
+
+        <div class="columna" id="articulo1">
+            <h3>Articulo 1</h3>
+            <p>La selección de Argentina disputó 7 partidos durante la Copa Mundial de Fútbol de 1978, coronándose
+                campeona del mundo por primera vez en su historia. El equipo dirigido por César Luis Menotti superó dos
+                fases de grupos previas antes de acceder a la gran final.
+                donde Argentina venció 3-1 a Países Bajos en tiempo suplementario y ganó su primer título mundial.</p>
+        </div>
+
+        <div class="columna" id="articulo2">
+            <h3>Articulo 2</h3>
+            <p>En la fase de grupos, Argentina le ganó 3-1 a Corea del Sur, empató 1-1 con Italia y venció 2-0 a
+                Bulgaria.En octavos de final eliminó a Uruguay por 1-0 y en cuartos superó 2-1 a Inglaterra con los
+                históricos goles de Maradona.En la semifinal, el seleccionado derrotó 2-0 a Bélgica gracias a otros dos
+                goles de Diego.En la gran final, Argentina le ganó 3-2 a Alemania Federal con tantos de Brown, Valdano y
+                Burruchaga para alzar la Copa del Mundo</p>
+        </div>
+
+        <div class="columna" id="articulo3">
+            <h3>Articulo 3</h3>
+            <p>La Selección Argentina disputó un total de 8 partidos durante el Mundial 2026, logrando el subcampeonato
+                del mundo tras caer en el partido definitorio contra España.</p>
+        </div>
+
+        <div class="columna" id="articulo4">
+            <h3>Articulo 4</h3>
+            <img src="maradona.jfif" alt="foto articulo 4">
+        </div>
+
+        <div class="columna" id="articulo5">
+            <h3>Articulo 5</h3>
+            <img src="messi.jfif" alt="foto articulo 5">
+        </div>
+
+        <div class="columna" id="articulo6">
+            <h3>Articulo 6</h3>
+            <img src="ronaldo.jfif" alt="foto articulo 6">
+        </div>
+
+    </div>
+
+</body>
+
+</html>
