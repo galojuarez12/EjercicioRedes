@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 2</title>
+    <style>
+        p {
+            font-size: 1em;
+            margin-bottom: 60px;
+        }
+
+        .claseResaltado {
+            font-size: 1em;
+            font-weight: bold;
+            background-color: yellow;
+        }
+
+        .claseAyuda {
+            font-size: 1em;
+            font-style: italic;
+            color: #c98a2b;
+            border: 1px solid #c98a2b;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .claseContenidoComun {
+            font-size: 1em;
+            color: #000;
+        }
+
+        .claseAcotacion {
+            font-size: 0.7em;
+            font-style: italic;
+            color: #666;
+        }
+
+        #idUnico {
+            border: 1px solid red;
+            color: red;
+            font-weight: bold;
+            font-style: italic;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .imagenAl50 {
+            width: 50%;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Ejercicio 2</h1>
+
+    <p>A partir de esta página no usaremos más el atributo style en ninguna etiqueta.</p>
+
+    <p>Todo el estilo aplicado en el documento será definido dentro de una etiqueta style como "clase", anidada en la
+        etiqueta head del documento.</p>
+
+    <pre>p { /*El default para cualquier párrafo*/
+font-size: 1em;
+margin-bottom:60px;
+}</pre>
+
+    <p>Todos los párrafos tienen un default como estilo que incluyen un margin-bottom para separarlos más entre ellos.
+    </p>
+
+    <pre>.claseResaltado {
+font-size:1em;
+font-weight:bold;
+background-color: yellow;
+}</pre>
+
+    <p>Este párrafo contiene un grupo de palabras delimitado por una etiqueta "span". El comienzo es aquí: <span
+            class="claseResaltado">grupo de palabras destacadas con el estilo claseResaltado</span></p>
+
+    <p class="claseAcotacion">Este párrafo toma el estilo definido en la etiqueta style en el header del documento como
+        class="claseAcotacion".</p>
+
+    <p class="claseResaltado">Este párrafo toma el estilo definido en la etiqueta style en el header del documento como
+        class="claseResaltado"</p>
+
+    <p class="claseAyuda">Este párrafo toma el estilo definido en la etiqueta style en el header del documento como
+        class="claseAyuda"</p>
+
+    <p class="claseContenidoComun">Este párrafo toma el estilo definido en la etiqueta style en el header del documento
+        como class="claseContenidoComun"</p>
+
+    <p id="idUnico">Párrafo formateado por un estilo particular definido en el style del documento para un párrafo
+        específico id="idUnico". No se trata de un selector de clase sino de un selector de elemento "#"</p>
+
+    <p>Todas las imagenes con class="imagenAl50" en esta página se encuentran limitadas al 50% del ancho del contenedor
+        mas allá de su tamaño real en pixeles:</p>
+
+    <img class="imagenAl50" src="Boca.jfif" alt="Bombonera">
+
+    <p class="claseContenidoComun"> La imagen que se muestra es la cancha de Boca Juniors, su nombre es La Bombonera.
+    </p>
+
+
+</body>
+
+</html>
