@@ -13,16 +13,18 @@
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
-            border: 2px solid #444;
+            border: 0px solid #444;
             padding: 20px;
             border-radius: 8px;
             background-color: lightslategrey;
             box-sizing: border-box;
         }
 
-        .columna {
+        .fila {
             background-color: #add6e8;
             width: 220px;
+            height: 140px;
+            overflow-y: auto;
             padding: 15px;
             box-sizing: border-box;
             border: 2px solid #333;
@@ -44,10 +46,23 @@
             background: radial-gradient(circle at left, #e6a132 70%, #f0e5d8 100%);
         }
 
-        .columna img {
+        h3 {
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        #articulo4,
+        #articulo5,
+        #articulo6 {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .fila img {
             width: 100%;
+            height: calc(100% - 25px);
+            object-fit: fill;
             display: block;
-            margin-top: 10px;
         }
     </style>
 </head>
@@ -58,7 +73,7 @@
 
     <div class="contenedor">
 
-        <div class="columna" id="articulo1">
+        <div class="fila" id="articulo1">
             <h3>Articulo 1</h3>
             <p>La selección de Argentina disputó 7 partidos durante la Copa Mundial de Fútbol de 1978, coronándose
                 campeona del mundo por primera vez en su historia. El equipo dirigido por César Luis Menotti superó dos
@@ -66,7 +81,7 @@
                 donde Argentina venció 3-1 a Países Bajos en tiempo suplementario y ganó su primer título mundial.</p>
         </div>
 
-        <div class="columna" id="articulo2">
+        <div class="fila" id="articulo2">
             <h3>Articulo 2</h3>
             <p>En la fase de grupos, Argentina le ganó 3-1 a Corea del Sur, empató 1-1 con Italia y venció 2-0 a
                 Bulgaria.En octavos de final eliminó a Uruguay por 1-0 y en cuartos superó 2-1 a Inglaterra con los
@@ -75,23 +90,23 @@
                 Burruchaga para alzar la Copa del Mundo</p>
         </div>
 
-        <div class="columna" id="articulo3">
+        <div class="fila" id="articulo3">
             <h3>Articulo 3</h3>
             <p>La Selección Argentina disputó un total de 8 partidos durante el Mundial 2026, logrando el subcampeonato
                 del mundo tras caer en el partido definitorio contra España.</p>
         </div>
 
-        <div class="columna" id="articulo4">
+        <div class="fila" id="articulo4">
             <h3>Articulo 4</h3>
             <img src="maradona.jfif" alt="foto articulo 4">
         </div>
 
-        <div class="columna" id="articulo5">
+        <div class="fila" id="articulo5">
             <h3>Articulo 5</h3>
             <img src="messi.jfif" alt="foto articulo 5">
         </div>
 
-        <div class="columna" id="articulo6">
+        <div class="fila" id="articulo6">
             <h3>Articulo 6</h3>
             <img src="ronaldo.jfif" alt="foto articulo 6">
         </div>
