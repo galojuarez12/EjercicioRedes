@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio7</title>
+    <style>
+        body {
+            background-color: lightslategrey;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: black;
+        }
+
+        .caja {
+            width: 60%;
+            max-width: 700px;
+            margin: 0 auto 20px auto;
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        #caja1 {
+            background-color: #d8d8d8;
+        }
+
+
+        @media screen and (max-width:600px) {
+            #caja1 {
+                background-color: #053a5c;
+            }
+
+
+        }
+
+        @media screen and (min-width:601px) and (max-width:1080px) {
+            #caja1 {
+                background-color: #71c275;
+            }
+
+
+        }
+
+        @media screen and (min-width:1081px) {
+            #caja1 {
+                background-color: #e45959;
+            }
+
+
+        }
+
+        #caja2 {
+            height: 150px;
+            background: radial-gradient(circle, #f5a623 0%, #fbd9b8 60%, #fce8e0 100%);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        #caja3 {
+            height: 150px;
+            padding: 0;
+            background: linear-gradient(to right, #f5a623, #ffffff 40%, #ffffff 60%, #f6c6d8);
+            background-image: linear-gradient(to right, #f5a623, transparent 30%, transparent 70%, #f6c6d8), url(gengar.jfif);
+            background-size: 100% 100%, 45% 100%;
+            background-position: center, center;
+            background-repeat: no-repeat;
+        }
+
+        #caja4 {
+            background: linear-gradient(to right, #f6c6d8, #ffffff 50%, #f5a623);
+            text-align: left;
+            padding: 20px;
+            height: 150px;
+        }
+
+        #caja5 {
+            background: linear-gradient(to right, #f6c6d8, #ffffff 50%, #f5a623);
+            text-align: left;
+            padding: 0;
+            height: 150px
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Ejercicio 7 de CSS</h1>
+
+    <div class="caja" id="caja1">
+        Fondo gris para tamaño de view port mayores a 1080<br>
+        Fondo amarillo claro para tamaño de view port entre 600 y 1080<br>
+        Fondo celeste para tamaño de view port menor a 600
+    </div>
+
+    <div class="caja" id="caja2">Gradiente radial como fondo.</div>
+
+    <div class="caja" id="caja3"></div>
+
+    <div class="caja" id="caja4">Nodo de Texto en div4 alineado a la izquierda y con padding</div>
+
+    <div class="caja" id="caja5">Nodo de Texto en div5 alineado a la izquierda y sin padding</div>
+
+</body>
+
+</html>
