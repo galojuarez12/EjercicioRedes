@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Ejercicio 7 - Tabla RWD</title>
+<style>
+  html, body { margin: 0; padding: 0; box-sizing: border-box; }
+  * { box-sizing: border-box; }
+
+  body { font-family: Georgia, serif; background-color: #6b7280; }
+
+  header {
+    background-color: #d7e3ee;
+    color: #17324d;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead th {
+    background-color: #ff9a8b;
+    color: #17324d;
+    padding: 12px;
+    text-align: center;
+  }
+
+  tbody td {
+    padding: 10px 12px;
+    color: white;
+    text-align: center;
+  }
+
+  /* Estilo para columnas según el atributo genérico campo-dato */
+  [campo-dato='Id']    { width: 5%; }
+  [campo-dato='Nick']  { width: 15%; }
+  [campo-dato='Mail']  { width: 20%; }
+  [campo-dato='Web']   { width: 25%; }
+  [campo-dato='Twitter']{ width: 15%; }
+  [campo-dato='Skype'] { width: 20%; }
+
+  /* Filas pares e impares con distinto tono */
+  tbody tr { background-color: #1f6f6f; }
+  tbody tr:nth-child(odd) {
+    background: rgba(0,0,0,.2);
+  }
+
+  footer {
+    background-color: #9aa1ab;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  /* Consulta de medios: en pantallas menores a 1200px se oculta la
+     columna Skype para no saturar el ancho disponible */
+  @media (max-width: 1200px) {
+    [campo-dato='Skype'] {
+      display: none;
+    }
+  }
+
+  @media (max-width: 800px) {
+    [campo-dato='Twitter'] {
+      display: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>Rwd (Responsive Web Design) TABLE:</header>
+
+<table>
+  <thead>
+    <tr>
+      <th campo-dato="Id">Id</th>
+      <th campo-dato="Nick">Nick</th>
+      <th campo-dato="Mail">Mail</th>
+      <th campo-dato="Web">Web</th>
+      <th campo-dato="Twitter">Twitter</th>
+      <th campo-dato="Skype">Skype</th>
+    </tr>
+  </thead>
+  <tbody id="cuerpoTabla">
+  </tbody>
+</table>
+
+<footer>Pie</footer>
+
+<script>
+  // Genero filas de ejemplo dinámicamente para simular datos reales
+  const nombres = ["Zulti","lu","Pepe","Gato","Dulce","Fu","Menga","Leo"];
+  const tbody = document.getElementById('cuerpoTabla');
+  for (let i = 1; i <= 14; i++) {
+    const nick = nombres[(i - 1) % nombres.length];
+    const mailUser = nick.toLowerCase();
+    const fila = document.createElement('tr');
+    fila.innerHTML = `
+      <td campo-dato="Id">${i}</td>
+      <td campo-dato="Nick">${nick}</td>
+      <td campo-dato="Mail">${mailUser}@mail.com</td>
+      <td campo-dato="Web">http://${mailUser}.com</td>
+      <td campo-dato="Twitter">@${mailUser}</td>
+      <td campo-dato="Skype">${mailUser}@gmail.com</td>
+    `;
+    tbody.appendChild(fila);
+  }
+</script>
+
+</body>
+</html>
