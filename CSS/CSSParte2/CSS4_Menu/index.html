@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 5 - Menú desplegable</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    #menu ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #menu ul li {
+      background-color: #2e518b;
+      position: relative;
+      float: left;
+    }
+
+    #menu ul a {
+      display: block;
+      text-decoration: none;
+      color: white;
+      padding: 15px 25px;
+      font-weight: bold;
+    }
+
+    #menu ul li a:hover {
+      background-color: #1c3866;
+    }
+
+    #menu ul ul {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 240px;
+    }
+
+    #menu ul ul li {
+      float: none;
+      width: 100%;
+      background-color: #3d6bb3;
+    }
+
+    #menu ul ul a {
+      padding: 10px 15px;
+      white-space: nowrap;
+    }
+
+    #menu ul li:hover ul {
+      display: block;
+    }
+
+    #menu::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    main {
+      padding: 40px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav id="menu">
+    <ul>
+      <li>
+        <a href="#">HTML</a>
+        <ul>
+          <li><a href="../../../HTML/EJ1_PreguntasHTTP/index.html">PREGUNTAS</a></li>
+          <li><a href="../../../HTML/EJ2_Tablas/index.html">TABLAS</a></li>
+          <li><a href="../../../HTML/EJ3_Formulario/index.html">FORMS</a></li>
+          <li><a href="../../../HTML/EJ4_IFrame/index.html">IFRAME</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">CSS</a>
+        <ul>
+          <li><a href="../../CSSParte1/EJ1_StyleEnHeader/index.html">EJ1 - StyleEnHeader</a></li>
+          <li><a href="../../CSSParte1/EJ2_SelectoresDeClase/Index.html">EJ2 - SelectoresDeClase</a></li>
+          <li><a href="../../CSSParte1/EJ3_StyleEnFile/index.html">EJ3 - StyleEnFile</a></li>
+          <li><a href="../../CSSParte1/EJ4_FontSize/index.html">EJ4 - FontSize</a></li>
+          <li><a href="../../CSSParte1/EJ5_BackgroundFijo/Index.html">EJ5 - BackgroundFijo</a></li>
+          <li><a href="../../CSSParte1/EJ6_CentradoYPadding/index.html">EJ6 - CentradoYPadding</a></li>
+          <li><a href="../../CSSParte1/EJ7_DivsEnPila/index.html">EJ7 - DivsEnPila</a></li>
+          <li><a href="../../CSSParte1/EJ8_DivsEnFila/index.html">EJ8 - DivsEnFila</a></li>
+          <li><a href="../../CSSParte1/EJ9_DivsInternosEnColumnas/index.html">EJ9 - DivsInternosEnColumnas</a></li>
+          <li><a href="../../CSSParte1/EJ10_SelectoresDeEventos/index.html">EJ10 - SelectoresDeEventos</a></li>
+
+        </ul>
+      </li>
+      <li><a href="#">JSCRIPT</a></li>
+      <li><a href="#">ESPECIALES</a></li>
+      <li><a href="#">PHP</a></li>
+    </ul>
+  </nav>
+
+</body>
+
+</html>
