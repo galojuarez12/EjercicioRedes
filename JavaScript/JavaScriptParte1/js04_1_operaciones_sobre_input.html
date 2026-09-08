@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+Ejercicio js04_1_operaciones_sobre_input
+Objetivo: leer el valor de un input de texto, convertirlo a número
+(usando parseFloat, como recomienda jsParte1.pdf para evitar errores de
+tipeo: "Debemos transformarlo en number para poder operar con el"),
+operar sobre él y volver a escribir el resultado en el MISMO input.
+
+Este comportamiento fue confirmado en el video: al ingresar 3 y pulsar
+"Suma 1" el input pasó a mostrar 4, y al pulsar luego "x**2" pasó a
+mostrar 16 (o sea, cada botón toma el valor actual del input y lo
+reemplaza por el resultado de la operación).
+
+Botones: Muestra valor, Suma 1, x**2, Multiplica * 2, 2**x
+-->
+<html lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>JS06_operaciones_sobre_input.html</title>
+</head>
+<body>
+
+<h1>Introducir un valor en el cuadro de texto y luego pulsar el boton para ejecutar el procedimiento correspondiente</h1>
+
+<input type="text" id="valor" value="3" />
+<button onclick="muestraValor()">Muestra valor</button>
+<button onclick="suma1()">Suma 1</button>
+<button onclick="alCuadrado()">x**2</button>
+<button onclick="multiplicaPor2()">Multiplica * 2</button>
+<button onclick="dosElevadoAX()">2**x</button>
+
+<script type="text/javascript">
+
+	function obtenerValor() {
+		// El valor de cualquier input del DOM es siempre de tipo string,
+		// por eso hay que convertirlo a número antes de operar con él.
+		return parseFloat(document.getElementById("valor").value);
+	}
+
+	function escribirValor(resultado) {
+		document.getElementById("valor").value = resultado;
+	}
+
+	function muestraValor() {
+		alert("El valor actual es: " + obtenerValor());
+	}
+
+	function suma1() {
+		var x = obtenerValor();
+		escribirValor(x + 1);
+	}
+
+	function alCuadrado() {
+		var x = obtenerValor();
+		escribirValor(x ** 2);
+	}
+
+	function multiplicaPor2() {
+		var x = obtenerValor();
+		escribirValor(x * 2);
+	}
+
+	function dosElevadoAX() {
+		var x = obtenerValor();
+		escribirValor(2 ** x);
+	}
+
+</script>
+
+</body>
+</html>

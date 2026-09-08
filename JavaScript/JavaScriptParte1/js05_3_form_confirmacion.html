@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--
+Ejercicio js05_3_form_confirmacion
+Objetivo: usar confirm() para pedir confirmación antes de enviar y antes de
+blanquear (resetear) un formulario. confirm() es una ventana modal que
+devuelve true (Aceptar) o false (Cancelar); si devuelve false, se debe
+cancelar la acción por defecto (el envío o el reset).
+
+Estructura y textos confirmados en el video:
+	Confirmación de envío y de reset
+	Nombre: [input]
+	Apellido: [input]
+	[Blanquear] [Enviar]
+
+Al presionar "Enviar" aparece un confirm() con el texto "Esta seguro de
+enviar" (en el video se ve tipeado como "enviarr", lo corregimos acá).
+Se agrega el mismo comportamiento para "Blanquear", ya que el título del
+ejercicio dice explícitamente "...y de reset".
+El formulario envía sus datos (method="get") a una página de respuesta
+("respuesta_formulario.html"), en línea con lo mostrado al final del video
+("Respuesta a formulario").
+-->
+<html lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>JS21_Form_Confirmacion.html</title>
+<style>
+	body { font-family: Georgia, serif; }
+	.contenedor { background-color: lightblue; padding: 15px; width: 500px; }
+	.contenedor label { display: block; margin-top: 8px; }
+	.botonera { text-align: center; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div class="contenedor">
+	<h1>Confirmación de envío y de reset</h1>
+
+	<form action="respuesta_formulario.html" method="get"
+		onsubmit="return confirmarEnvio()"
+		onreset="return confirmarBlanqueo()">
+
+		<label for="nombre">Nombre</label>
+		<input type="text" id="nombre" name="nombre" />
+
+		<label for="apellido">Apellido</label>
+		<input type="text" id="apellido" name="apellido" />
+
+		<div class="botonera">
+			<input type="reset" value="Blanquear" />
+			<input type="submit" value="Enviar" />
+		</div>
+
+	</form>
+</div>
+
+<script type="text/javascript">
+
+	function confirmarEnvio() {
+		// Si el usuario presiona "Cancelar", confirm() devuelve false y
+		// el formulario NO se envía (se cancela el submit por defecto).
+		return confirm("¿Está seguro de enviar?");
+	}
+
+	function confirmarBlanqueo() {
+		return confirm("¿Está seguro de blanquear (resetear) el formulario?");
+	}
+
+</script>
+
+</body>
+</html>

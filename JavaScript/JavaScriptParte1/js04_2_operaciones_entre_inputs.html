@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--
+Ejercicio js04_2_operaciones_entre_inputs
+Objetivo: operar entre varios inputs numéricos y mostrar el resultado en
+un cuarto input llamado "Resultado".
+
+Estructura confirmada en el video:
+	Entrada 1: [input]
+	Entrada 2: [input]
+	Entrada 3: [input]
+	Resultado: [input, solo lectura de resultado]
+	[Suma] [Promedia] [Mayor]
+
+Prueba observada en el video: Entrada1=23, Entrada2=22, Entrada3=21,
+al pulsar "Promedia" el Resultado mostró 22 (que es el promedio exacto
+de 23,22,21). Esto confirma que "Promedia" hace la media aritmética de
+las 3 entradas.
+-->
+<html lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>JS08_operacionesSobreVariosInputs.html</title>
+</head>
+<body>
+
+<h1>Introducir un valor en los cuadros de texto y luego pulsar el boton para ejecutar la función correspondiente.</h1>
+
+<div style="background-color:lightblue;padding:10px;width:300px;">
+	<label>Entrada 1: </label><br />
+	<input type="text" id="entrada1" value="0" /><br />
+	<label>Entrada 2: </label><br />
+	<input type="text" id="entrada2" value="0" /><br />
+	<label>Entrada 3: </label><br />
+	<input type="text" id="entrada3" value="0" /><br />
+	<label>Resultado: </label><br />
+	<input type="text" id="resultado" value="" />
+</div>
+
+<br />
+<button onclick="suma()">Suma</button>
+<button onclick="promedia()">Promedia</button>
+<button onclick="mayor()">Mayor</button>
+
+<script type="text/javascript">
+
+	function leerEntradas() {
+		var e1 = parseFloat(document.getElementById("entrada1").value);
+		var e2 = parseFloat(document.getElementById("entrada2").value);
+		var e3 = parseFloat(document.getElementById("entrada3").value);
+		return [e1, e2, e3];
+	}
+
+	function escribirResultado(valor) {
+		document.getElementById("resultado").value = valor;
+	}
+
+	function suma() {
+		var entradas = leerEntradas();
+		escribirResultado(entradas[0] + entradas[1] + entradas[2]);
+	}
+
+	function promedia() {
+		var entradas = leerEntradas();
+		var promedio = (entradas[0] + entradas[1] + entradas[2]) / 3;
+		escribirResultado(promedio);
+	}
+
+	function mayor() {
+		var entradas = leerEntradas();
+		var elMayor = Math.max(entradas[0], entradas[1], entradas[2]);
+		escribirResultado(elMayor);
+	}
+
+</script>
+
+</body>
+</html>

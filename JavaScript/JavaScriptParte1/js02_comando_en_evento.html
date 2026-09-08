@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+Ejercicio js02_comando_en_evento
+Objetivo: mostrar la diferencia entre invocar alert() y document.write()
+desde el manejador de un evento (click de un botón), una vez que el
+documento ya terminó su flujo de escritura (ya está totalmente cargado).
+
+Según el apunte jsParte1.pdf (sección "Donde escribir Java script"):
+"document.write() deja de ser una herramienta de escritura cuando se trata
+de programar funciones asociadas a eventos (click en un botón por ejemplo)."
+Es decir: al ejecutarse dentro de un evento posterior a la carga,
+document.write() borra todo el documento y lo reemplaza únicamente por lo
+que se le pasa como argumento. Por eso se agregó un comentario de aviso al
+usuario antes de que esto ocurra.
+-->
+<html lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>JS02_comando_en_evento.html</title>
+</head>
+<body>
+
+<h1>Ejercicio JS02_comando_en_evento.html</h1>
+
+<button id="btnAlert">Click Aquí para ejecutar un alert</button>
+<button id="btnWrite">Click Aquí para ejecutar un document.write();</button>
+
+<script type="text/javascript">
+
+	document.getElementById("btnAlert").addEventListener("click", function () {
+		alert("Este alert() fue ejecutado desde el manejador de evento click de un botón.");
+	});
+
+	document.getElementById("btnWrite").addEventListener("click", function () {
+		// En este punto el flujo de escritura del documento ya terminó
+		// (la página ya se cargó por completo), por lo tanto
+		// document.write() no agrega contenido: BORRA todo el documento
+		// existente y lo reemplaza por el nuevo contenido indicado.
+		document.write("<h1>Este texto reemplazó por completo a la página, " +
+			"porque document.write() se ejecutó luego de haber cerrado el " +
+			"flujo de escritura del documento (dentro de un evento).</h1>");
+	});
+
+</script>
+
+</body>
+</html>

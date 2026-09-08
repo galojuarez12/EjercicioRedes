@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+Ejercicio js04_4_convertir_a_mayusculas
+Objetivo: convertir a mayúsculas lo que el usuario tipeó en un input, en el
+momento en que ese input pierde el foco (evento "focusout").
+
+Tomado literalmente de jsParte1.pdf:
+	document.getElementById("nombre").addEventListener("focusout", function() {
+		this.value = this.value.toUpperCase();
+	});
+
+Confirmado en el video: labels "Ingrese nombre:" e "Ingrese el apellido:".
+-->
+<html lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>Conversión a mayúscula</title>
+</head>
+<body>
+
+<label for="nombre">Ingrese nombre:</label><br />
+<input type="text" id="nombre" name="nombre" /><br />
+
+<label for="apellido">Ingrese el apellido:</label><br />
+<input type="text" id="apellido" name="apellido" />
+
+<script type="text/javascript">
+
+	// "this" dentro de la función anónima hace referencia al propio
+	// elemento input que disparó el evento (el que perdió el foco).
+	document.getElementById("nombre").addEventListener("focusout", function () {
+		this.value = this.value.toUpperCase();
+	});
+
+	document.getElementById("apellido").addEventListener("focusout", function () {
+		this.value = this.value.toUpperCase();
+	});
+
+</script>
+
+</body>
+</html>

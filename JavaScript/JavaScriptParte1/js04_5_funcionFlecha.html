@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+Ejercicio js04_5_funcionFlecha
+Objetivo: declarar una función flecha (arrow function, sintaxis de ES6) que
+sume dos valores tomados de dos inputs, y mostrar el resultado en un tercer
+input, al pulsar el botón "suma".
+
+El código de la función flecha es EXACTAMENTE el que se ve escrito en el
+video:
+	const suma =(a,b) => {c= a + b; return c}
+-->
+<html lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>Función Flecha</title>
+</head>
+<body>
+
+<h1>Función Flecha</h1>
+<h2>const suma =(a,b) =&gt; {c= a + b; return c}</h2>
+
+<input type="text" id="entrada1" value="0" />
+<input type="text" id="entrada2" value="0" />
+<button onclick="ejecutarSuma()">suma</button>
+<input type="text" id="resultado" value="" readonly />
+
+<script type="text/javascript">
+
+	// Declaración de la función flecha (arrow function) tal como se
+	// muestra en el video y en el apunte jsParte1.pdf.
+	const suma = (a, b) => { c = a + b; return c; };
+
+	function ejecutarSuma() {
+		var a = parseFloat(document.getElementById("entrada1").value);
+		var b = parseFloat(document.getElementById("entrada2").value);
+		document.getElementById("resultado").value = suma(a, b);
+	}
+
+</script>
+
+</body>
+</html>

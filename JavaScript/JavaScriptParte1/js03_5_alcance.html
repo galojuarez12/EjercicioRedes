@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+Ejercicio js03_5_alcance
+Objetivo: mostrar el alcance (scope) de las variables globales frente a
+declaraciones y asignaciones hechas DENTRO de una función.
+
+Basado en jsParte1.pdf:
+"Si dentro de una función no se usa una declaración, una simple asignación
+genera una variable de alcance global."
+Y también en el concepto de que "var" dentro de una función crea una
+variable local a esa función, que "tapa" (hace sombra) a la global sin
+modificarla.
+
+Botones (idénticos a los del video, confirmados por capturas):
+ 1) "Asignacion con declaración ( declaracion + asignación)":
+    hace  var variableGlobal = <valor>;  DENTRO de una función.
+    Como se usa "var" dentro de la función, se crea una variable LOCAL
+    que no afecta a la variable global (el tooltip del video decía:
+    "Inicializa variable global desde adentro de una función con
+    declaración var").
+ 2) "Asignacion forzada sin declaración":
+    hace  variableGlobal = <valor>;  SIN "var" dentro de la función.
+    Al no declararla, JavaScript la toma como la variable global ya
+    existente y la modifica.
+ 3) "Muestra variable global": muestra valor y tipo de la variable global.
+
+Al cargar la página se muestra un alert() con el valor inicial de la
+variable global (que es undefined, porque solo fue declarada, no asignada),
+tal como se ve en el video.
+-->
+<html lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>JS04_alcance.html</title>
+</head>
+<body>
+
+<h1>Asignaremos valor a la variable global desde adentro de una función:</h1>
+
+<button onclick="asignacionConDeclaracion()" title="Inicializa variable global desde adentro de una función con declaración var">
+	Asignacion con declaración ( declaracion + asignación)
+</button>
+<button onclick="asignacionForzadaSinDeclaracion()">
+	Asignacion forzada sin declaración
+</button>
+<button onclick="muestraVariableGlobal()">
+	Muestra variable global
+</button>
+
+<script type="text/javascript">
+
+	// variable global, declarada sin asignar => su valor inicial es undefined
+	var variableGlobal;
+
+	// Al cargar la página mostramos su valor y tipo iniciales (como en el video)
+	alert("El valor de variableGlobal es: " + variableGlobal);
+	alert("El tipo de variableGlobal es: " + typeof variableGlobal);
+
+	function asignacionConDeclaracion() {
+		// Al usar "var" DENTRO de la función se crea una variable local
+		// con el mismo nombre, que "tapa" a la global sin modificarla.
+		var variableGlobal = prompt("Ingrese valor para la variable global (declaración local, no va a modificar la global)");
+		alert("Dentro de la función, variableGlobal (local) vale: " + variableGlobal);
+		alert("El tipo de la variable local ingresada es: " + typeof variableGlobal);
+	}
+
+	function asignacionForzadaSinDeclaracion() {
+		// Al NO usar "var"/"let"/"const" dentro de la función, JavaScript
+		// interpreta que se está asignando a la variable global ya
+		// existente, y la modifica de verdad.
+		variableGlobal = prompt("Ingrese valor para la variable global:");
+	}
+
+	function muestraVariableGlobal() {
+		alert("El valor de variableGlobal es: " + variableGlobal);
+		alert("El tipo de variableGlobal es: " + typeof variableGlobal);
+	}
+
+</script>
+
+</body>
+</html>

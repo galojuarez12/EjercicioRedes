@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--
+Ejercicio js04_3_funcionesCompartidas
+Objetivo: mostrar el concepto de "funciones compartidas" (una misma función
+reutilizada por muchos elementos, recibiendo distintos argumentos), similar
+al ejemplo de jsParte1.pdf:
+
+	function mayor(arg1,arg2) { ... }
+	mayor("4","3");
+
+En este ejercicio los 10 botones numéricos (0 al 9) llaman TODOS a la misma
+función agregarDigito(n), pasándole como argumento su propio número. Esa
+única función es la responsable de armar el valor que se ve en el display.
+
+Estructura confirmada en el video:
+	[display]
+	[1] [2] [3]
+	[4] [5] [6]
+	[7] [8] [9]
+	[0]
+	[+Acumulador]      [Muestra Acumulador]
+	[Borra Acumulador] [Borra display]
+-->
+<html lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>JS07_argumentos.html</title>
+<style>
+	body { font-family: Georgia, serif; }
+	.contenedor { width: 650px; background-color: #cfe8ef; padding: 10px; }
+	#display { width: 100%; height: 40px; font-size: 20px; text-align: right; margin-bottom: 10px; }
+	.teclado button { width: 32%; height: 40px; margin: 2px; font-size: 16px; }
+	.acciones { background-color: #fdf6e3; padding: 10px; margin-top: 10px; }
+	.acciones button { width: 48%; height: 40px; margin: 2px; }
+</style>
+</head>
+<body>
+
+<div class="contenedor">
+
+	<input type="text" id="display" value="" readonly />
+
+	<div class="teclado">
+		<button onclick="agregarDigito(1)">1</button>
+		<button onclick="agregarDigito(2)">2</button>
+		<button onclick="agregarDigito(3)">3</button>
+		<button onclick="agregarDigito(4)">4</button>
+		<button onclick="agregarDigito(5)">5</button>
+		<button onclick="agregarDigito(6)">6</button>
+		<button onclick="agregarDigito(7)">7</button>
+		<button onclick="agregarDigito(8)">8</button>
+		<button onclick="agregarDigito(9)">9</button>
+		<button onclick="agregarDigito(0)">0</button>
+	</div>
+
+	<div class="acciones">
+		<button onclick="sumarAlAcumulador()">+Acumulador</button>
+		<button onclick="muestraAcumulador()">Muestra Acumulador</button>
+		<button onclick="borraAcumulador()">Borra Acumulador</button>
+		<button onclick="borraDisplay()">Borra display</button>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+
+	var acumulador = 0;
+
+	// Función COMPARTIDA: los 10 botones numéricos llaman a esta misma
+	// función, cada uno pasándole su propio dígito como argumento.
+	function agregarDigito(digito) {
+		var display = document.getElementById("display");
+		display.value = display.value + digito;
+	}
+
+	function sumarAlAcumulador() {
+		var display = document.getElementById("display");
+		acumulador += parseFloat(display.value) || 0;
+		display.value = "";
+	}
+
+	function muestraAcumulador() {
+		alert("El valor del acumulador es: " + acumulador);
+	}
+
+	function borraAcumulador() {
+		acumulador = 0;
+	}
+
+	function borraDisplay() {
+		document.getElementById("display").value = "";
+	}
+
+</script>
+
+</body>
+</html>

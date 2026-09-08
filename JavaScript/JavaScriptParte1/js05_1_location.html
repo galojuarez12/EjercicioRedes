@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!--
+Ejercicio js05_1_location
+Objetivo: usar el objeto "location" del BOM (Browser Object Model) para
+redireccionar el navegador a otra URL, tal como explica jsParte1.pdf:
+
+	location.href="https://www.youtube.com";
+	// Esta asignación provoca una redirección a otro host/dominio por
+	// java script
+
+Confirmado en el video: tres botones con los textos "Youtube",
+"Source Force" y "Gmail", cada uno redirige a un sitio distinto.
+-->
+<html lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>js05_1_location</title>
+</head>
+<body>
+
+<button onclick="irA('https://www.youtube.com')">Youtube</button>
+<button onclick="irA('https://sourceforge.net')">Source Force</button>
+<button onclick="irA('https://mail.google.com')">Gmail</button>
+
+<script type="text/javascript">
+
+	function irA(url) {
+		// El objeto "location" representa la URL actual del navegador.
+		// Al asignarle un nuevo valor a location.href, el navegador
+		// redirecciona (navega) hacia esa nueva dirección.
+		location.href = url;
+	}
+
+</script>
+
+</body>
+</html>
