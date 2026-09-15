@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>js06_validacionConKeyUp</title>
+
+<!--
+  CONSIGNA (título visto en el video): "Ejer validación de un INPUT de
+  formulario en el evento de onKeyUp"
+
+  Formulario con dos inputs: "Ingrese el día del mes" e "Ingrese el mes",
+  y botones Enviar / Reset.
+
+  Confirmado en el video: al escribir en el campo "día del mes" un valor
+  fuera de rango (ej: 1555, 312), se dispara -en el evento keyup- un
+  alert() con el texto exacto:
+
+      "El valor debe estar entre 1 y 31"
+
+  NOTA: el mensaje equivalente para el campo "mes" ("El valor debe estar
+  entre 1 y 12") no llegué a verlo literalmente en pantalla, pero se
+  deduce por analogía directa del mismo mecanismo aplicado al campo día
+  (mismo patrón de validación, mismo tipo de alert). Lo marco en el
+  comentario del código.
+
+  También se ve que el botón Reset limpia el formulario (comportamiento
+  nativo de un <form> con <input type="reset">) y que al hacer click en
+  Enviar, si los datos son válidos, se llega a una página de respuesta
+  ("Respuesta a formulario"). Como esa página de respuesta no forma
+  parte de la consigna ni se ve su contenido, en el submit simplemente
+  vuelvo a validar y, si está todo bien, dejo que el formulario haga un
+  submit normal (agregado mío, ya que no se ve el código real).
+-->
+
+<style>
+  body { font-family: Arial, sans-serif; }
+  #formulario {
+    background-color: #add8e6;
+    padding: 20px;
+    width: 400px;
+  }
+  label { display: block; margin-top: 10px; }
+  input[type="text"] { width: 150px; }
+  .botones { margin-top: 20px; text-align: center; }
+</style>
+</head>
+<body>
+
+<h2>Ejer validación de un INPUT de formulario en el evento de onKeyUp</h2>
+
+<form id="formulario">
+  <label for="dia">Ingrese el día del mes:</label>
+  <input type="text" id="dia" name="dia" />
+
+  <label for="mes">Ingrese el mes:</label>
+  <input type="text" id="mes" name="mes" />
+
+  <div class="botones">
+    <input type="submit" value="Enviar" />
+    <input type="reset" value="Reset" />
+  </div>
+</form>
+
+<script>
+  let inputDia = document.getElementById("dia");
+  let inputMes = document.getElementById("mes");
+  let formulario = document.getElementById("formulario");
+
+  /* Validación del día en el evento keyup, tal como se ve en el video:
+     mensaje confirmado en pantalla "El valor debe estar entre 1 y 31" */
+  inputDia.addEventListener("keyup", function () {
+    let valor = parseInt(inputDia.value);
+    if (isNaN(valor) || valor < 1 || valor > 31) {
+      alert("El valor debe estar entre 1 y 31");
+    }
+  });
+
+  /* Validación del mes en el evento keyup. El mensaje "El valor debe
+     estar entre 1 y 12" es una deducción mía por analogía con el campo
+     día (no se alcanza a leer literalmente en el video). */
+  inputMes.addEventListener("keyup", function () {
+    let valor = parseInt(inputMes.value);
+    if (isNaN(valor) || valor < 1 || valor > 12) {
+      alert("El valor debe estar entre 1 y 12");
+    }
+  });
+
+  /* Revalidación general antes de enviar el formulario (agregado mío,
+     ya que el código real de envío no se ve en el video) */
+  formulario.addEventListener("submit", function (evento) {
+    let dia = parseInt(inputDia.value);
+    let mes = parseInt(inputMes.value);
+
+    if (isNaN(dia) || dia < 1 || dia > 31) {
+      alert("El valor debe estar entre 1 y 31");
+      evento.preventDefault();
+      return;
+    }
+    if (isNaN(mes) || mes < 1 || mes > 12) {
+      alert("El valor debe estar entre 1 y 12");
+      evento.preventDefault();
+      return;
+    }
+    /* Si pasa la validación se deja continuar el submit normal del
+       formulario (no se define action, por lo que recarga la misma
+       página con los datos en la URL, method GET por defecto). */
+  });
+</script>
+
+</body>
+</html>

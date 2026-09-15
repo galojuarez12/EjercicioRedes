@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>js05_6_variables_objeto_dato</title>
+
+<!--
+  CONSIGNAS DEL EJERCICIO (tal como aparecen escritas en el video):
+
+  No usar jquery por ahora
+  Armar 3 contenedores: (1) Ingreso de datos, (2) Control y
+  (3) Presentación de tabla que aparece y desaparece con botones en el control
+  Declarar y hacer uso de Objetos de dato (datos de tipo objeto)
+  Cargar 2 personas en un array por programa
+  Dejar de usar la función prompt() para el ingreso de datos. Armar un
+  contenedor para el ingreso de datos desde consola (solo inputs sin formulario)
+  Dejar de usar document.write() y escribir contenido dentro de un elemento
+  html (puede ser un div de presentación)
+  Tres botones para llamar a tres funciones. Una para cargar un nuevo objeto
+  de dato PREVIA VALIDACIÓN!, otra para mostrar en formato de tabla el array
+  completo de elementos con su longitud, y la tercera para ocultar la
+  presentación.
+  El procedimiento para ocultar el elemento de presentación cambiará el
+  estilo display:none del contenedor de presentación.
+
+  Los 2 datos precargados (Pablo Galdi 01/07/1956 y Jose Witt 17/01/1985)
+  se ven tal cual en la demo del video, y coinciden con el ejemplo del
+  apunte de jsParte2 (arregloPersonas).
+
+  NOTA: El video no muestra el código fuente, solo el resultado en el
+  navegador. La validación previa a la carga (uso de required +
+  checkValidity(), visto en el apunte de JS) y el formato exacto de la
+  tabla de presentación son reconstrucciones mías siguiendo las técnicas
+  explicadas en los apuntes (jsParte1, jsParte2). Lo marco con comentarios
+  donde corresponde.
+-->
+
+<style>
+  body { font-family: Arial, sans-serif; }
+  .contenedor {
+    border: 1px solid #7fb3d5;
+    background-color: #fdfde0;
+    padding: 15px;
+    margin-bottom: 15px;
+    width: 350px;
+  }
+  #control { width: 350px; background-color: #fdfde0; border: 1px solid #7fb3d5; padding: 10px; }
+  label { display: block; margin-top: 8px; }
+  input { width: 200px; }
+  table { border-collapse: collapse; margin-top: 10px; }
+  td, th { border: 1px solid #333; padding: 4px 8px; }
+</style>
+</head>
+<body>
+
+  <h2>Ingreso de datos de persona:</h2>
+  <div id="ingreso" class="contenedor">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" required />
+
+    <label for="apellido">Apellido:</label>
+    <input type="text" id="apellido" required />
+
+    <label for="fechaNac">Fecha de Nacimiento:</label>
+    <input type="text" id="fechaNac" required />
+  </div>
+
+  <div id="control">
+    <button id="btnCrea">Crea persona</button>
+    <button id="btnLista">Lista personas</button>
+    <button id="btnOculta">Oculta presentación</button>
+  </div>
+
+  <h2>Presentación</h2>
+  <div id="presentacion" class="contenedor" style="display:none"></div>
+
+<script>
+  /* Objeto de dato "persona" y arreglo de objetos, tal como se explica
+     en el apunte de jsParte2 (Estructura de datos de tipo objeto):
+     { clave1:valor1, clave2:valor2, ... } */
+  let objetoPersona1 = { nombre: "Pablo", apellido: "Galdi", fechaNac: "01/07/1956" };
+  let objetoPersona2 = { nombre: "Jose", apellido: "Witt", fechaNac: "17/01/1985" };
+
+  /* Carga de las 2 personas por programa, como pide la consigna */
+  let arregloPersonas = [objetoPersona1];
+  arregloPersonas.push(objetoPersona2);
+
+  let divIngreso = document.getElementById("ingreso");
+  let divPresentacion = document.getElementById("presentacion");
+  let inputNombre = document.getElementById("nombre");
+  let inputApellido = document.getElementById("apellido");
+  let inputFechaNac = document.getElementById("fechaNac");
+
+  /* Botón 1: crea un nuevo objeto de dato PREVIA VALIDACIÓN */
+  document.getElementById("btnCrea").addEventListener("click", function () {
+
+    /* Validación HTML5 con checkValidity(), técnica vista en el apunte
+       de jsParte2 (Validación HTML5) aplicada a cada input requerido */
+    if (inputNombre.checkValidity() && inputApellido.checkValidity() && inputFechaNac.checkValidity()) {
+
+      let nuevaPersona = {
+        nombre: inputNombre.value,
+        apellido: inputApellido.value,
+        fechaNac: inputFechaNac.value
+      };
+
+      arregloPersonas.push(nuevaPersona);
+
+      /* Blanqueo de los inputs luego de la carga (agregado mío) */
+      inputNombre.value = "";
+      inputApellido.value = "";
+      inputFechaNac.value = "";
+
+      alert("Persona cargada correctamente.");
+    } else {
+      alert("Valor ingresado no válido!! Complete los 3 campos.");
+    }
+  });
+
+  /* Botón 2: muestra en formato de tabla el array completo con su longitud */
+  document.getElementById("btnLista").addEventListener("click", function () {
+
+    /* Se arma el HTML en una variable de texto y se asigna a innerHTML
+       del contenedor de presentación, en lugar de usar document.write(),
+       tal como indica la consigna y el apunte de jsParte2. */
+    let texto = "<table>";
+    texto += "<tr><th>Nombre</th><th>Apellido</th><th>Fecha de Nacimiento</th></tr>";
+
+    /* Recorrido del arreglo de objetos con forEach, técnica vista en
+       el apunte de jsParte2 */
+    arregloPersonas.forEach(function (item, indice) {
+      texto += "<tr><td>" + item.nombre + "</td><td>" + item.apellido + "</td><td>" + item.fechaNac + "</td></tr>";
+    });
+
+    texto += "</table>";
+    texto += "<p>Longitud del arreglo de objetos: " + arregloPersonas.length + "</p>";
+
+    divPresentacion.innerHTML = texto;
+    divPresentacion.style.display = "block";
+  });
+
+  /* Botón 3: oculta el contenedor de presentación cambiando display:none */
+  document.getElementById("btnOculta").addEventListener("click", function () {
+    divPresentacion.style.display = "none";
+  });
+</script>
+
+</body>
+</html>

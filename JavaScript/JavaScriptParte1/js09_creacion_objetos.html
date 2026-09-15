@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>js09_creacion_objetos</title>
+
+<!--
+  CONSIGNA (comprobada en el video): 3 botones -> Crear, Limpiar, Info.
+
+  "Crear" agrega un nuevo <div> dentro de un contenedor con scroll,
+  mostrando el texto "Elemento creado: N" (N = childNodes.length del
+  contenedor ANTES de insertar el nuevo elemento, o sea que arranca en 0).
+
+  "Info" muestra un alert() con la cantidad de elementos actuales del
+  contenedor. En el video se lee (con una errata de tipeo del profesor)
+  "longitud del chilNodes: 3"; en este código lo escribo bien:
+  "longitud del childNodes: 3".
+
+  "Limpiar" deja el contenedor vacío otra vez (se vio en el video que
+  al volver a crear elementos, el conteo arranca de nuevo en 0).
+
+  Esta lógica (createElement, appendChild, childNodes.length y el bucle
+  while + removeChild para vaciar el contenedor) está documentada casi
+  textual en el apunte de jsParte2 ("Creación dinámica de elementos
+  HTML" y "Remoción de objetos"), así que el código de abajo sigue esa
+  misma técnica, solo que con let en lugar de var.
+-->
+
+<style>
+  body { font-family: Arial, sans-serif; }
+  .botones { margin-bottom: 15px; }
+  #contenedor {
+    width: 500px;
+    height: 300px;
+    overflow: auto;
+    background-color: #fdfde0;
+    border: 1px solid #999;
+  }
+  .claseObjetoDinamico {
+    background-color: #add8e6;
+    border-bottom: 1px solid #333;
+    padding: 10px;
+  }
+  .claseObjetoDinamico h1 {
+    margin: 0;
+    font-size: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="botones">
+  <button id="btnCrear">Crear</button>
+  <button id="btnLimpiar">Limpiar</button>
+  <button id="btnInfo">Info</button>
+</div>
+
+<div id="contenedor"></div>
+
+<script>
+  let contenedor = document.getElementById("contenedor");
+
+  /* Creación dinámica de objetos del DOM, técnica vista en el apunte
+     de jsParte2 (createElement + appendChild) */
+  document.getElementById("btnCrear").addEventListener("click", function () {
+    let objDiv = document.createElement("div");
+    let textoHtml = "<h1>Elemento creado: ";
+    textoHtml = textoHtml + contenedor.childNodes.length;
+    textoHtml = textoHtml + "</h1>";
+
+    objDiv.innerHTML = textoHtml;
+    objDiv.className = "claseObjetoDinamico";
+
+    contenedor.appendChild(objDiv);
+  });
+
+  /* Remoción de todos los objetos del contenedor, técnica vista en el
+     apunte de jsParte2 (bucle while + removeChild) */
+  document.getElementById("btnLimpiar").addEventListener("click", function () {
+    while (contenedor.childNodes.length > 0) {
+      contenedor.removeChild(contenedor.childNodes[0]);
+    }
+  });
+
+  /* Muestra la cantidad de elementos actuales del contenedor */
+  document.getElementById("btnInfo").addEventListener("click", function () {
+    alert("longitud del childNodes: " + contenedor.childNodes.length);
+  });
+</script>
+
+</body>
+</html>

@@ -1,83 +1,82 @@
 <!DOCTYPE html>
-<!--
-Ejercicio js05_4_traduccion
-
-IMPORTANTE (aclaración pedida por el usuario):
-Este ejercicio NO aparece resuelto en el video "JavaScriptParte1.mp4" (el
-video corta justo después de js05_3_form_confirmacion). Por lo tanto esta
-solución fue construida por mí, apoyándome en dos partes de las 4 fuentes
-que SÍ están disponibles:
-
- 1) ApunteHTML.pdf, sección "Configuración del navegador / Selección del
-    lenguaje", que explica el atributo lang de la etiqueta <html> y muestra
-    la pantalla de configuración de idiomas y el "Traductor de Google" de
-    Chrome.
- 2) jsParte1.pdf, que menciona el objeto "window.navigator" del BOM como el
-    objeto "que contiene info de configuración del navegador".
-
-Con esos dos elementos arme un ejercicio de "traducción" razonable: usar
-JavaScript (objeto navigator) para leer el idioma configurado en el
-navegador del usuario y, en base a eso, mostrar un saludo en el idioma
-correspondiente (es/en/pt/fr), a la vez que se deja bien seteado el
-atributo lang del documento para que el traductor del navegador (Chrome)
-lo detecte correctamente.
-
-Como esta parte no proviene directamente del video, cualquier detalle de
-implementación (los idiomas soportados, los textos exactos) es una
-decisión propia y no una transcripción de la clase.
--->
-<html lang="es" id="paginaHtml">
+<html lang="es">
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<title>js05_4_traduccion</title>
+  <meta charset="UTF-8" />
+  <title>js05_4_traduccion</title>
+
+  <!--
+  CONSIGNA (reconstruida a partir de lo visto en el video):
+  Mostrar un título en la página. El texto debe aparecer en español
+  ("Aprendé a estudiar en serio") o en inglés ("Learn to study seriously")
+  según el idioma configurado en el navegador del usuario.
+
+  En el video se ve como el profesor entra a la configuración de idiomas
+  de Chrome (chrome://settings/languages), cambia el orden de los idiomas
+  preferidos (pone "inglés" primero) y al recargar la página el texto
+  cambia de español a inglés. Esto se corresponde con el objeto del BOM
+  window.navigator.languages, documentado en el apunte de JS parte 2:
+
+      window.navigator.languages[0]  -> primer idioma declarado (string)
+      stringOriginal.substr(0, 2)    -> toma los 2 primeros caracteres,
+                                         ej: "es_ES" -> "es"
+
+  NOTA: La estructura de datos "textos" (diccionario es/en) y el idioma
+  por defecto (español) en caso de no reconocer el idioma del navegador
+  son agregados míos, ya que el video no muestra el código fuente, solo
+  el comportamiento en el navegador.
+-->
+
+  <style>
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      text-align: center;
+      margin-top: 120px;
+    }
+
+    #tituloGrande {
+      font-size: 48px;
+    }
+
+    #tituloChico {
+      font-size: 22px;
+    }
+  </style>
 </head>
 
 <body>
 
-	<h1>Traducción según el idioma configurado en el navegador</h1>
+  <h1>
+    <span id="tituloGrande"></span>
+    <span id="tituloChico"></span>
+  </h1>
 
-	<p>
-		El atributo <code>lang</code> de la etiqueta &lt;html&gt; le indica al
-		navegador (y a herramientas como el Traductor de Google) en qué idioma
-		está escrita la página. Acá lo vamos a ajustar dinámicamente según el
-		idioma que el propio navegador tiene configurado, usando el objeto
-		<code>navigator</code> del BOM.
-	</p>
+  <script>
+    /* Los objetos del BOM (según apunte jsParte2):
+       window.navigator.languages es un array con los idiomas declarados
+       en el navegador. El primer elemento [0] es el idioma por defecto. */
+    let idiomaCompleto = window.navigator.languages[0];
 
-	<div id="salida"></div>
+    /* Función substr para quedarnos solo con los 2 primeros caracteres
+       (ej: "es-ES" -> "es", "en-US" -> "en") tal como se explica en el
+       apunte: stringOriginal.substr(0, 2) */
+    let idioma = idiomaCompleto.substr(0, 2);
 
-	<script type="text/javascript">
+    /* Diccionario de textos por idioma.
+       (Agregado mío: estructura de datos tipo objeto para no repetir
+       código por cada idioma soportado) */
+    let textos = {
+      es: { grande: "Aprendé a", chico: "estudiar en serio" },
+      en: { grande: "Learn to", chico: "study seriously" }
+    };
 
-		// navigator.language: idioma preferido configurado en el navegador
-		// (ej: "es", "es-AR", "en-US", "pt-BR", ...)
-		var idiomaNavegador = navigator.language || navigator.userLanguage;
+    /* Si el idioma detectado no está entre los soportados, se usa
+       español como idioma por defecto. (Agregado mío, no mostrado en
+       el video) */
 
-		// Diccionario simple de saludos según el idioma detectado.
-		var saludos = {
-			es: "Hola, bienvenido/a.",
-			en: "Hello, welcome.",
-			pt: "Olá, bem-vindo/a.",
-			fr: "Bonjour, bienvenue."
-		};
 
-		// Nos quedamos solo con las dos primeras letras del código de idioma
-		// (por ejemplo, de "es-AR" nos quedamos con "es").
-		var idiomaCorto = idiomaNavegador.substring(0, 2).toLowerCase();
 
-		var saludo = saludos[idiomaCorto] || saludos["en"]; // por defecto, inglés
-
-		// Actualizamos el atributo lang del documento para que coincida con el
-		// idioma detectado (esto es lo que el traductor del navegador utiliza
-		// para decidir si ofrece traducir la página o no).
-		document.getElementById("paginaHtml").setAttribute("lang", idiomaCorto);
-
-		document.getElementById("salida").innerHTML =
-			"<h2>Idioma detectado por navigator.language: " + idiomaNavegador + "</h2>" +
-			"<h2>" + saludo + "</h2>" +
-			"<p>Atributo lang del documento actualizado a: \"" + idiomaCorto + "\"</p>";
-
-	</script>
+  </script>
 
 </body>
 

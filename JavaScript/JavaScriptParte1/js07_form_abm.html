@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>js07_form_abm</title>
+
+<!--
+  CONSIGNA (reconstruida a partir de la demo del video):
+
+  "FORMULARIO ABM" con 3 campos: Apellido, Nombres, Saldo.
+  4 botones: Blanquear, Alta, Modi, Baja.
+
+  El video no muestra el código ni una lista/tabla visible de los
+  registros, solo el formulario con los 4 botones en funcionamiento.
+  Por eso, la lógica interna de Alta/Modi/Baja (arreglo de objetos en
+  memoria, uso de apellido como clave para buscar el registro,
+  validación con checkValidity(), y los mensajes de alert()) es una
+  reconstrucción mía siguiendo el patrón ABM estándar (Alta = agregar,
+  Baja = eliminar, Modi = modificar) y las técnicas de objetos/arreglos
+  que se explican en el apunte de jsParte2. Lo marco en los comentarios.
+-->
+
+<style>
+  body { font-family: Arial, sans-serif; }
+  #formularioAbm {
+    background-color: #add8e6;
+    width: 350px;
+    padding: 15px;
+  }
+  label { display: block; margin-top: 8px; }
+  input { width: 200px; }
+  .botones { margin-top: 15px; }
+</style>
+</head>
+<body>
+
+<h2>FORMULARIO ABM</h2>
+
+<div id="formularioAbm">
+  <label for="apellido">Apellido:</label>
+  <input type="text" id="apellido" required />
+
+  <label for="nombres">Nombres:</label>
+  <input type="text" id="nombres" required />
+
+  <label for="saldo">Saldo:</label>
+  <input type="text" id="saldo" required />
+
+  <div class="botones">
+    <button id="btnBlanquear">Blanquear</button>
+    <button id="btnAlta">Alta</button>
+    <button id="btnModi">Modi</button>
+    <button id="btnBaja">Baja</button>
+  </div>
+</div>
+
+<script>
+  /* Arreglo de objetos "persona" en memoria (no hay persistencia ni
+     lista visible en el video, así que se administra solo en el array).
+     Estructura de objeto de dato vista en el apunte de jsParte2. */
+  let arregloPersonas = [];
+
+  let inputApellido = document.getElementById("apellido");
+  let inputNombres = document.getElementById("nombres");
+  let inputSaldo = document.getElementById("saldo");
+
+  /* Función para blanquear (limpiar) los 3 campos del formulario */
+  function blanquear() {
+    inputApellido.value = "";
+    inputNombres.value = "";
+    inputSaldo.value = "";
+  }
+
+  /* Busca el índice de una persona en el arreglo según su apellido.
+     (Agregado mío: uso de Array.findIndex(), no está documentado en
+     los apuntes provistos, pero es la forma estándar de JS moderno
+     para ubicar un elemento dentro de un array de objetos) */
+  function buscarIndicePorApellido(apellido) {
+    return arregloPersonas.findIndex(function (persona) {
+      return persona.apellido === apellido;
+    });
+  }
+
+  document.getElementById("btnBlanquear").addEventListener("click", function () {
+    blanquear();
+  });
+
+  /* ALTA: agrega un nuevo registro, previa validación de los 3 campos */
+  document.getElementById("btnAlta").addEventListener("click", function () {
+    if (!inputApellido.checkValidity() || !inputNombres.checkValidity() || !inputSaldo.checkValidity()) {
+      alert("Valor ingresado no válido!! Complete los 3 campos.");
+      return;
+    }
+
+    let indiceExistente = buscarIndicePorApellido(inputApellido.value);
+    if (indiceExistente !== -1) {
+      alert("Ya existe una persona con ese apellido. Use Modi para modificarla.");
+      return;
+    }
+
+    let nuevaPersona = {
+      apellido: inputApellido.value,
+      nombres: inputNombres.value,
+      saldo: parseFloat(inputSaldo.value)
+    };
+    arregloPersonas.push(nuevaPersona);
+
+    alert("Alta realizada correctamente.");
+    blanquear();
+  });
+
+  /* MODI: modifica nombres y saldo de la persona ubicada por apellido */
+  document.getElementById("btnModi").addEventListener("click", function () {
+    if (!inputApellido.checkValidity()) {
+      alert("Ingrese un apellido para poder modificar.");
+      return;
+    }
+
+    let indice = buscarIndicePorApellido(inputApellido.value);
+    if (indice === -1) {
+      alert("No existe ninguna persona con ese apellido.");
+      return;
+    }
+
+    arregloPersonas[indice].nombres = inputNombres.value;
+    arregloPersonas[indice].saldo = parseFloat(inputSaldo.value);
+
+    alert("Modificación realizada correctamente.");
+    blanquear();
+  });
+
+  /* BAJA: elimina del arreglo la persona ubicada por apellido.
+     (Agregado mío: uso de Array.splice() para eliminar un elemento del
+     arreglo; no está documentado en los apuntes provistos, que solo
+     muestran push() para agregar elementos) */
+  document.getElementById("btnBaja").addEventListener("click", function () {
+    if (!inputApellido.checkValidity()) {
+      alert("Ingrese un apellido para poder dar de baja.");
+      return;
+    }
+
+    let indice = buscarIndicePorApellido(inputApellido.value);
+    if (indice === -1) {
+      alert("No existe ninguna persona con ese apellido.");
+      return;
+    }
+
+    arregloPersonas.splice(indice, 1);
+
+    alert("Baja realizada correctamente.");
+    blanquear();
+  });
+</script>
+
+</body>
+</html>
