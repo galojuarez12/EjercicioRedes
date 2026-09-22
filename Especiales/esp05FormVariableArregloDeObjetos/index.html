@@ -5,18 +5,18 @@
     <meta charset="UTF-8">
     <title>Formulario en Ventana Modal</title>
 
-    <!-- Enlace a la libreria Jquery ubicada en la carpeta padre (Especiales) -->
-    <!-- Tal cual se explica en el documento de Jquery -->
+    <!-- Carga libreria jQuery -->
+    <!-- Requisito de ejemplo -->
     <script src="../jquery.js"></script>
 
-    <!-- Enlace al archivo que contiene la variable de texto JSON con las familias -->
-    <!-- Se encuentra en la carpeta padre, al mismo nivel que cada ejercicio -->
+    <!-- Carga datos familias -->
+    <!-- Archivo compartido del curso -->
     <script src="../familias.json"></script>
 
     <style>
         <style>
 
-        /* Reset de márgenes y cálculo de cajas */
+        /* Reset de cajas */
         * {
             box-sizing: border-box;
         }
@@ -66,11 +66,11 @@
             cursor: pointer;
         }
 
-        /* Cuando la pantalla se achica y no entran las 2 columnas */
+        /* Diseño adaptable móvil */
         @media (max-width: 768px) {
             #cuerpo {
                 grid-template-columns: 1fr;
-                /* Pasa a 1 columna */
+                /* Una sola columna */
                 gap: 20px;
                 padding: 20px;
             }
@@ -125,12 +125,11 @@
 
     <script>
         /*
-            Codigo basado en el documento de Jquery:
-            - $(document).ready() para ejecutar codigo cuando termina de cargar el documento.
-            - JSON.parse() para obtener un objeto Java Script a partir de la variable de
-              texto JSON (textoJSONFamilias) que llega desde ../familias.json
-            - forEach() para recorrer el arreglo de objetos y crear dinamicamente
-              las opciones del <select>, igual que la funcion creaOpciones() del documento.
+          
+        
+            - Parsea JSON a objeto
+           
+            
         */
 
         $(document).ready(function () {
@@ -138,12 +137,12 @@
         });
 
         function creaOpcionesFamilia() {
-            // Paso 1: parsear el texto JSON para obtener la variable de tipo objeto
+            // Parsea JSON
             const objJson = JSON.parse(textoJSONFamilias);
 
-            // Paso 2: recorrer con forEach el arreglo "familias" (arreglo de objetos)
+            // Recorre familias
             objJson.familias.forEach(function (argValor, argIndice) {
-                // Paso 3: crear dinamicamente cada <option> igual que en el documento
+                // Crea opcion
                 let objOpcion = document.createElement("option");
                 objOpcion.setAttribute("value", argValor.codFamilia);
                 objOpcion.innerHTML = argValor.descFamilia;
@@ -151,13 +150,12 @@
             });
         }
 
-        /* Manejador del boton ENVIAR usando jQuery, igual al ejemplo del documento */
-        /* click() aplicado al objeto boton en lugar de usar el atributo onClick    */
+        
+        
         $(document).ready(function () {
             $("#btEnviar").click(function () {
-                // Muestra los datos cargados en el formulario.
-                // No forma parte literal de los documentos fuente, se agrega como
-                // comprobacion minima de que el formulario esta funcionando.
+                // Muestra datos
+                // Verifica formulario
                 alert(
                     "ISBN: " + $("#ISBN").val() + "\n" +
                     "Familia: " + $("#selectFamilia").val() + "\n" +

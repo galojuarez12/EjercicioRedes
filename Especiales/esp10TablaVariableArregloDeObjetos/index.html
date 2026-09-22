@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <title>Tabla y Variable Arreglo de Objetos</title>
 
-    <!-- Libreria Jquery, ubicada en la carpeta padre, igual que en el documento -->
+    
     <script src="../jquery.js"></script>
 
-    <!-- Variable de texto JSON con los articulos, ubicada en la carpeta padre -->
+    
     <script src="../articulos.json"></script>
 
     <style>
@@ -57,7 +57,7 @@
             cursor: pointer;
         }
 
-        /* 2. Tabla que ocupa todo el 100% de la altura disponible */
+        
         table {
             width: 100%;
             flex: 1;
@@ -65,7 +65,7 @@
             flex-direction: column;
             border-collapse: collapse;
             min-height: 0;
-            /* <-- Fundamental para permitir el scroll interno en Flexbox */
+            
         }
 
 
@@ -136,8 +136,7 @@
             flex: 1.2;
         }
 
-        /* 5. Fondo GRIS central cuando la tabla está vacía */
-        /* 5. Fondo GRIS central cuando la tabla está vacía */
+        
         tbody {
             flex: 1;
             min-height: 0;
@@ -145,7 +144,7 @@
             display: block;
             width: 100%;
             overflow-y: auto;
-            /* <-- "auto" solo muestra la barra cuando hace falta */
+            
         }
 
 
@@ -222,12 +221,9 @@
 
     <script>
         /*
-            Basado en el documento de Jquery, seccion "Ejemplo de como crear
-            dinamicamente filas en el tbody de una tabla":
+       
             1) Parsear el texto JSON para obtener el objeto Java script.
-            2) Recorrer con forEach cada elemento del arreglo "articulos".
-            3) Crear dinamicamente <tr> y <td> por cada articulo, igual que en el PDF
-               (createElement, setAttribute, innerHTML, appendChild).
+         
         */
 
         $(document).ready(function () {
@@ -236,24 +232,22 @@
             });
 
             $("#btVaciar").click(function () {
-                // $("#tbDatos").empty(); -> metodo de Jquery para vaciar un contenedor,
-                // tal cual figura en el documento de Jquery.
+             
                 $("#tbDatos").empty();
                 actualizarSuma(); // deja los totales en 0 (agregado, no esta en el PDF)
             });
         });
 
         function cargarTabla() {
-            // Por las dudas, vaciamos antes de recargar para no duplicar filas
-            // (agregado propio, no aparece explicito en el documento).
+          
             $("#tbDatos").empty();
 
             const objJson = JSON.parse(textoJSONArticulos);
 
             objJson.articulos.forEach(function (argValor, argIndice) {
-                var objTr = document.createElement("tr");
+                let objTr = document.createElement("tr");
 
-                var objTd = document.createElement("td");
+                let objTd = document.createElement("td");
                 objTd.setAttribute("campo-dato", "articulos_codArt");
                 objTd.innerHTML = argValor.codArt;
                 objTr.appendChild(objTd);
@@ -289,18 +283,12 @@
             actualizarSuma(objJson.articulos);
         }
 
-        /*
-            Calculo de la fila de totales (sum saldo Stock).
-            Esta funcion no esta desarrollada en los PDF fuente (que solo muestran el
-            rotulo "sum ..." como referencia), se agrega para completar el pie de
-            tabla usando el mismo patron de forEach visto en los documentos.
-        */
         function actualizarSuma(articulos) {
             if (!articulos) {
                 document.getElementById("sumSaldoStock").innerHTML = "sum saldo Stock: 0";
                 return;
             }
-            var total = 0;
+            let total = 0;
             articulos.forEach(function (argValor, argIndice) {
                 total = total + argValor.saldoStock;
             });
