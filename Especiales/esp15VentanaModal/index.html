@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario en Ventana Modal</title>
+
+    <!-- Librería jQuery y datos JSON de familias -->
+    <script src="../jquery.js"></script>
+    <script src="../familias.json"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Clases de activación y desactivación */
+        div.ventanaModalApagado {
+            visibility: hidden;
+        }
+
+        div.ventanaModalPrendido {
+            visibility: visible;
+        }
+
+        div.contenedorActivo {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        div.contenedorPasivo {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* Fondo general de la página */
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            margin: 0;
+            padding: 25px;
+            background-color: #dcedf7;
+        }
+
+        /* Contenedor principal */
+        #contenedor h2 {
+            margin-top: 0;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        #btAbre {
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 1px solid #999;
+            background-color: #efefef;
+            border-radius: 4px;
+        }
+
+        #btAbre:hover {
+            background-color: #e0e0e0;
+        }
+
+        #ayudas {
+            font-size: 15px;
+            color: #333;
+            margin-top: 25px;
+            line-height: 1.6;
+        }
+
+        #ayudas p {
+            margin: 8px 0;
+        }
+
+        /* Ventana Modal - Centrada perfectamente en pantalla */
+        #ventanaModal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 95%;
+            max-width: 1450px;
+            max-height: 95vh;
+            overflow-y: auto;
+            border: 2px solid #444;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+            background-color: #fff;
+        }
+
+        /* Barra superior para cerrar el modal */
+        #barraSuperiorModal {
+            background-color: #9c9c9c;
+            padding: 14px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 20px;
+            color: #000;
+        }
+
+        #btCierra {
+            background: none;
+            border: none;
+            color: #cc0000;
+            font-weight: bold;
+            font-size: 26px;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0 8px;
+        }
+
+        #btCierra:hover {
+            color: #ff0000;
+        }
+
+        /* Estilos del formulario de libros */
+        #encabezado,
+        #pie {
+            background-color: #edf581;
+            text-align: center;
+            padding: 22px 0;
+        }
+
+        #encabezado h2 {
+            margin: 0;
+            font-size: 28px;
+            line-height: 1.3;
+            color: #111;
+        }
+
+        #pie h3 {
+            margin: 0;
+            font-size: 24px;
+            color: #111;
+        }
+
+        #cuerpo {
+            background-color: #9da6f1;
+            padding: 50px 70px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 35px 80px;
+        }
+
+        .campo label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 12px;
+            font-size: 22px;
+            color: #000;
+        }
+
+        .campo input,
+        .campo select {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 22px;
+            border: 1px solid #777;
+            background-color: #ffffff;
+            outline: none;
+        }
+
+        .campo input:focus,
+        .campo select:focus {
+            border-color: #000;
+        }
+
+        #btEnviar {
+            padding: 16px 0;
+            font-size: 22px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            border: 1px solid #777;
+            background-color: #efefef;
+            letter-spacing: 1px;
+        }
+
+        #btEnviar:hover {
+            background-color: #dfdfdf;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            #cuerpo {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 25px;
+            }
+
+            .campo label {
+                font-size: 18px;
+            }
+
+            .campo input,
+            .campo select {
+                font-size: 18px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Contenedor principal -->
+    <div id="contenedor" class="contenedorActivo">
+        <h2>Esto es el div contenedor</h2>
+
+        <button id="btAbre" type="button">Abro DIV modal</button>
+
+        <div id="ayudas">
+            <p><strong>Ayudas para el ejercicio</strong></p>
+            <p>El div contenedor deberá ser desactivado cuando se active la ventana modal</p>
+            <p>Desactivar el contenedor podria ser darle transparencia y deshabilitar todos sus botones.</p>
+            <p><strong>Desactivado:</strong><br>
+                pointer-events: none<br>
+                opacity: 0.3</p>
+            <p><strong>Activado:</strong><br>
+                pointer-events: auto<br>
+                opacity: 1</p>
+        </div>
+    </div>
+
+    <!-- Ventana modal con formulario que envía por método GET -->
+    <div id="ventanaModal" class="ventanaModalApagado">
+
+        <!-- Barra de encabezado modal con botón X -->
+        <div id="barraSuperiorModal">
+            <span>Encabezado modal</span>
+            <button id="btCierra" type="button">X</button>
+        </div>
+
+        <form action="respuesta.html" method="get">
+            <!-- Encabezado del Formulario -->
+            <div id="encabezado">
+                <h2>Formulario para ALTA<br>Agregar Libro</h2>
+            </div>
+
+            <!-- Cuerpo del Formulario en 2 columnas -->
+            <div id="cuerpo">
+                <div class="campo">
+                    <label for="ISBN">ISBN:</label>
+                    <input type="text" id="ISBN" name="ISBN" required>
+                </div>
+
+                <div class="campo">
+                    <label for="selectFamilia">Genero Literario:</label>
+                    <select id="selectFamilia" name="selectFamilia" required>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="titulo">Título:</label>
+                    <input type="text" id="titulo" name="titulo" required>
+                </div>
+
+                <div class="campo">
+                    <label for="fechaAlta">Fecha Alta:</label>
+                    <input type="date" id="fechaAlta" name="fechaAlta" required>
+                </div>
+
+                <div class="campo">
+                    <label for="precio">Precio:</label>
+                    <input type="number" id="precio" name="precio" value="0" required>
+                </div>
+
+                <div class="campo" style="align-self: flex-end;">
+                    <button id="btEnviar" type="submit">ENVIAR</button>
+                </div>
+            </div>
+
+            <!-- Pie del Formulario -->
+            <div id="pie">
+                <h3>Biblioteca UB</h3>
+            </div>
+        </form>
+
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Estado inicial: contenedor activo, modal apagada
+            $('#contenedor').attr("class", "contenedorActivo");
+            $('#ventanaModal').attr("class", "ventanaModalApagado");
+
+            // Cargar dinámicamente las opciones del select desde familias.json
+            creaOpcionesFamilia();
+
+            // Botón para ABRIR la ventana modal
+            $("#btAbre").click(function () {
+                $('#contenedor').attr("class", "contenedorPasivo");
+                $('#ventanaModal').attr("class", "ventanaModalPrendido");
+            });
+
+            // Botón para CERRAR la ventana modal
+            $("#btCierra").click(function () {
+                $('#contenedor').attr("class", "contenedorActivo");
+                $('#ventanaModal').attr("class", "ventanaModalApagado");
+            });
+        });
+
+        // Carga dinámica de opciones en el select
+        function creaOpcionesFamilia() {
+            try {
+                const objJson = JSON.parse(textoJSONFamilias);
+                objJson.familias.forEach(function (argValor) {
+                    let objOpcion = document.createElement("option");
+                    objOpcion.setAttribute("value", argValor.codFamilia);
+                    objOpcion.innerHTML = argValor.descFamilia;
+                    document.getElementById("selectFamilia").appendChild(objOpcion);
+                });
+            } catch (e) {
+                console.error("Error al cargar familias:", e);
+            }
+        }
+    </script>
+
+</body>
+
+</html>

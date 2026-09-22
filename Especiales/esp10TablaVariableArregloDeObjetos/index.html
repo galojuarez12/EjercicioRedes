@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tabla y Variable Arreglo de Objetos</title>
+
+    <!-- Libreria Jquery, ubicada en la carpeta padre, igual que en el documento -->
+    <script src="../jquery.js"></script>
+
+    <!-- Variable de texto JSON con los articulos, ubicada en la carpeta padre -->
+    <script src="../articulos.json"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100vh;
+            width: 100%;
+            font-family: Georgia, serif;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* 1. Barra superior crema */
+        #encabezado {
+            background-color: #e5ec84;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+        }
+
+        #encabezado h2 {
+            flex: 1;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        #botones {
+            display: flex;
+        }
+
+        #botones button,
+        #encabezado button {
+            background-color: #7472e9;
+            border: 1px solid #999;
+            padding: 8px 18px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        /* 2. Tabla que ocupa todo el 100% de la altura disponible */
+        table {
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-collapse: collapse;
+            min-height: 0;
+            /* <-- Fundamental para permitir el scroll interno en Flexbox */
+        }
+
+
+        thead,
+        tfoot {
+            width: 100%;
+        }
+
+        thead tr,
+        tfoot tr {
+            display: flex;
+            width: 100%;
+        }
+
+        /* 3. Cabecera y Pie de color coral */
+        th,
+        tfoot td {
+            background-color: #6f66ec;
+            color: #111;
+            font-weight: normal;
+            padding: 10px 5px;
+            border: 1px solid #888;
+            text-align: center;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        tfoot td {
+            text-transform: none;
+            font-size: 12px;
+        }
+
+        /* 4. Proporciones de las columnas (Descripción más ancha en el centro) */
+        th:nth-child(1),
+        tbody td:nth-child(1),
+        tfoot td:nth-child(1) {
+            flex: 1;
+        }
+
+        th:nth-child(2),
+        tbody td:nth-child(2),
+        tfoot td:nth-child(2) {
+            flex: 1;
+        }
+
+        th:nth-child(3),
+        tbody td:nth-child(3),
+        tfoot td:nth-child(3) {
+            flex: 0.8;
+        }
+
+        th:nth-child(4),
+        tbody td:nth-child(4),
+        tfoot td:nth-child(4) {
+            flex: 2.2;
+        }
+
+        /* Descripción */
+        th:nth-child(5),
+        tbody td:nth-child(5),
+        tfoot td:nth-child(5) {
+            flex: 1.2;
+        }
+
+        th:nth-child(6),
+        tbody td:nth-child(6),
+        tfoot td:nth-child(6) {
+            flex: 1.2;
+        }
+
+        /* 5. Fondo GRIS central cuando la tabla está vacía */
+        /* 5. Fondo GRIS central cuando la tabla está vacía */
+        tbody {
+            flex: 1;
+            min-height: 0;
+            background-color: #cccccc;
+            display: block;
+            width: 100%;
+            overflow-y: auto;
+            /* <-- "auto" solo muestra la barra cuando hace falta */
+        }
+
+
+
+        tbody tr {
+            display: flex;
+            width: 100%;
+        }
+
+        tbody td {
+            padding: 8px 5px;
+            border: 1px solid #7b75ca;
+            text-align: center;
+        }
+
+        /* Filas con datos */
+        tbody tr:nth-child(even) {
+            background-color: #d6e294;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #a1a2e9;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="encabezado">
+        <h2>Articulos</h2>
+        <div>
+            <button id="btCargar" type="button">Cargar datos</button>
+            <button id="btVaciar" type="button">Vaciar datos</button>
+        </div>
+    </div>
+
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>CodArt</th>
+                <th>Familia</th>
+                <th>UM</th>
+                <th>Descripción</th>
+                <th>Fecha Alta</th>
+                <th>Saldo Stock</th>
+            </tr>
+        </thead>
+
+        <!-- El tbody debe tener id="tbDatos" -->
+        <tbody id="tbDatos">
+        </tbody>
+
+        <!-- El tfoot con los ids para calcular totales -->
+        <tfoot>
+            <tr>
+                <td id="sumCodArt">sum codArt</td>
+                <td id="sumFamilia">sum familia</td>
+                <td id="sumUm">sum um</td>
+                <td id="sumDescripcion">sum descripcion</td>
+                <td id="sumFechaAlta">sum fecha alta</td>
+                <td id="sumSaldoStock">sum saldo Stock</td>
+            </tr>
+        </tfoot>
+
+    </table>
+
+
+    <div id="pie">
+        <h3>Pie</h3>
+    </div>
+
+    <script>
+        /*
+            Basado en el documento de Jquery, seccion "Ejemplo de como crear
+            dinamicamente filas en el tbody de una tabla":
+            1) Parsear el texto JSON para obtener el objeto Java script.
+            2) Recorrer con forEach cada elemento del arreglo "articulos".
+            3) Crear dinamicamente <tr> y <td> por cada articulo, igual que en el PDF
+               (createElement, setAttribute, innerHTML, appendChild).
+        */
+
+        $(document).ready(function () {
+            $("#btCargar").click(function () {
+                cargarTabla();
+            });
+
+            $("#btVaciar").click(function () {
+                // $("#tbDatos").empty(); -> metodo de Jquery para vaciar un contenedor,
+                // tal cual figura en el documento de Jquery.
+                $("#tbDatos").empty();
+                actualizarSuma(); // deja los totales en 0 (agregado, no esta en el PDF)
+            });
+        });
+
+        function cargarTabla() {
+            // Por las dudas, vaciamos antes de recargar para no duplicar filas
+            // (agregado propio, no aparece explicito en el documento).
+            $("#tbDatos").empty();
+
+            const objJson = JSON.parse(textoJSONArticulos);
+
+            objJson.articulos.forEach(function (argValor, argIndice) {
+                var objTr = document.createElement("tr");
+
+                var objTd = document.createElement("td");
+                objTd.setAttribute("campo-dato", "articulos_codArt");
+                objTd.innerHTML = argValor.codArt;
+                objTr.appendChild(objTd);
+
+                objTd = document.createElement("td");
+                objTd.setAttribute("campo-dato", "articulos_familia");
+                objTd.innerHTML = argValor.familia;
+                objTr.appendChild(objTd);
+
+                objTd = document.createElement("td");
+                objTd.setAttribute("campo-dato", "articulos_um");
+                objTd.innerHTML = argValor.um;
+                objTr.appendChild(objTd);
+
+                objTd = document.createElement("td");
+                objTd.setAttribute("campo-dato", "articulos_descripcion");
+                objTd.innerHTML = argValor.descripcion;
+                objTr.appendChild(objTd);
+
+                objTd = document.createElement("td");
+                objTd.setAttribute("campo-dato", "articulos_fechaAlta");
+                objTd.innerHTML = argValor.fechaAlta;
+                objTr.appendChild(objTd);
+
+                objTd = document.createElement("td");
+                objTd.setAttribute("campo-dato", "articulos_saldoStock");
+                objTd.innerHTML = argValor.saldoStock;
+                objTr.appendChild(objTd);
+
+                document.getElementById("tbDatos").appendChild(objTr);
+            });
+
+            actualizarSuma(objJson.articulos);
+        }
+
+        /*
+            Calculo de la fila de totales (sum saldo Stock).
+            Esta funcion no esta desarrollada en los PDF fuente (que solo muestran el
+            rotulo "sum ..." como referencia), se agrega para completar el pie de
+            tabla usando el mismo patron de forEach visto en los documentos.
+        */
+        function actualizarSuma(articulos) {
+            if (!articulos) {
+                document.getElementById("sumSaldoStock").innerHTML = "sum saldo Stock: 0";
+                return;
+            }
+            var total = 0;
+            articulos.forEach(function (argValor, argIndice) {
+                total = total + argValor.saldoStock;
+            });
+            document.getElementById("sumSaldoStock").innerHTML = "Total saldo Stock: " + total;
+        }
+    </script>
+
+</body>
+
+</html>

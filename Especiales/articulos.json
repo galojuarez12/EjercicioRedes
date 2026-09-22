@@ -1,0 +1,148 @@
+let textoJSONArticulos = `{
+    "articulos": [
+        {
+            "codArt": "ARC00",
+            "familia": "ARCOR",
+            "um": "PAQ",
+            "descripcion": "Caramelos Butter Toffees Dulce de Leche",
+            "fechaAlta": "2024-03-10",
+            "saldoStock": 450
+        },
+        {
+            "codArt": "ARC01",
+            "familia": "ARCOR",
+            "um": "PAQ",
+            "descripcion": "Gomitas Mogul Frutales Formitas",
+            "fechaAlta": "2024-03-12",
+            "saldoStock": 320
+        },
+        {
+            "codArt": "MIL00",
+            "familia": "MILKA",
+            "um": "UN",
+            "descripcion": "Chocolate Milka Oreo 100g",
+            "fechaAlta": "2024-04-05",
+            "saldoStock": 180
+        },
+        {
+            "codArt": "MIL01",
+            "familia": "MILKA",
+            "um": "UN",
+            "descripcion": "Alfajor Milka Mousse Triple",
+            "fechaAlta": "2024-04-15",
+            "saldoStock": 250
+        },
+        {
+            "codArt": "FER00",
+            "familia": "FERRERO",
+            "um": "CJ",
+            "descripcion": "Bombones Ferrero Rocher x8",
+            "fechaAlta": "2024-05-01",
+            "saldoStock": 95
+        },
+        {
+            "codArt": "CAD01",
+            "familia": "CADBURY",
+            "um": "UN",
+            "descripcion": "Chocolate Cadbury Relleno Frutilla 80g",
+            "fechaAlta": "2024-05-10",
+            "saldoStock": 140
+        },
+        {
+            "codArt": "FEL00",
+            "familia": "FELFORT",
+            "um": "UN",
+            "descripcion": "Bocadito Marroc Clasico 14g",
+            "fechaAlta": "2024-06-01",
+            "saldoStock": 500
+        },
+        {
+            "codArt": "NES00",
+            "familia": "NESTLE",
+            "um": "UN",
+            "descripcion": "Oblea Kit Kat Chocolate con Leche",
+            "fechaAlta": "2024-06-20",
+            "saldoStock": 210
+        },
+        {
+            "codArt": "HAV00",
+            "familia": "HAVANNA",
+            "um": "UN",
+            "descripcion": "Alfajor Havanna Chocolate 70% Cacao",
+            "fechaAlta": "2024-07-02",
+            "saldoStock": 310
+        },
+        {
+            "codArt": "SUG00",
+            "familia": "SUGUS",
+            "um": "PAQ",
+            "descripcion": "Caramelos Sugus Surtidos Masticables 150g",
+            "fechaAlta": "2024-07-10",
+            "saldoStock": 420
+        },
+        {
+            "codArt": "AGU00",
+            "familia": "AGUILA",
+            "um": "UN",
+            "descripcion": "Chocolate Aguila Semiamargo 150g",
+            "fechaAlta": "2024-07-15",
+            "saldoStock": 165
+        },
+        {
+            "codArt": "BAG00",
+            "familia": "BAGLEY",
+            "um": "PAQ",
+            "descripcion": "Galletitas Sonrisas Rellenas Frambuesa",
+            "fechaAlta": "2024-07-22",
+            "saldoStock": 290
+        },
+        {
+            "codArt": "COF00",
+            "familia": "COFLER",
+            "um": "UN",
+            "descripcion": "Chocolate Cofler Block con Mani 110g",
+            "fechaAlta": "2024-08-01",
+            "saldoStock": 380
+        },
+        {
+            "codArt": "TER00",
+            "familia": "TERRABUSI",
+            "um": "UN",
+            "descripcion": "Alfajor Terrabusi Triple Torta",
+            "fechaAlta": "2024-08-05",
+            "saldoStock": 240
+        },
+        {
+            "codArt": "FLY00",
+            "familia": "FLYNNPAFF",
+            "um": "PAQ",
+            "descripcion": "Caramelos Flynn Paff Tutti Frutti 140g",
+            "fechaAlta": "2024-08-12",
+            "saldoStock": 350
+        },
+        {
+            "codArt": "KIN00",
+            "familia": "KINDER",
+            "um": "UN",
+            "descripcion": "Huevo Kinder Sorpresa Chocolate 20g",
+            "fechaAlta": "2024-08-20",
+            "saldoStock": 175
+        },
+        {
+            "codArt": "JOR00",
+            "familia": "JORGITO",
+            "um": "UN",
+            "descripcion": "Alfajor Jorgito Chocolate Negro",
+            "fechaAlta": "2024-08-25",
+            "saldoStock": 600
+        },
+        {
+            "codArt": "GUA00",
+            "familia": "GUAYMALLEN",
+            "um": "UN",
+            "descripcion": "Alfajor Guaymallen Triple Dulce de Leche",
+            "fechaAlta": "2024-09-01",
+            "saldoStock": 750
+        }
+    ]
+}`;

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tabla y Formulario</title>
+
+    <!-- Librería Jquery y archivos JSON -->
+    <script src="../jquery.js"></script>
+    <script src="../articulos.json"></script>
+    <script src="../familias.json"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100vh;
+            width: 100%;
+            font-family: Georgia, 'Times New Roman', serif;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Clases de activación y desactivación de la ventana modal */
+        div.ventanaModalApagado {
+            visibility: hidden;
+        }
+
+        div.ventanaModalPrendido {
+            visibility: visible;
+        }
+
+        div.contenedorActivo {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        div.contenedorPasivo {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* 1. Contenedor principal que ocupa toda la pantalla */
+        #contenedor {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 2. Barra superior crema con título y botones a la derecha */
+        #encabezado {
+            background-color: #e5ec84;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+        }
+
+        #encabezado h2 {
+            flex: 1;
+            text-align: center;
+            font-size: 20px;
+            color: #111;
+        }
+
+        #botonesEncabezado {
+            display: flex;
+            gap: 10px;
+        }
+
+        #botonesEncabezado button {
+            background-color: #7472e9;
+            color: #ffffff;
+            border: 1px solid #555;
+            padding: 8px 18px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        #botonesEncabezado button:hover {
+            background-color: #5f5ce0;
+        }
+
+        /* 3. Tabla que ocupa todo el 100% de la altura disponible */
+        table {
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-collapse: collapse;
+            min-height: 0;
+            /* Fundamental para el scroll interno en Flexbox */
+        }
+
+        thead,
+        tfoot {
+            width: 100%;
+        }
+
+        thead tr,
+        tfoot tr {
+            display: flex;
+            width: 100%;
+        }
+
+        /* Cabecera y Pie de color violeta */
+        th,
+        tfoot td {
+            background-color: #6f66ec;
+            color: #ffffff;
+            font-weight: normal;
+            padding: 10px 5px;
+            border: 1px solid #555;
+            text-align: center;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        tfoot td {
+            text-transform: none;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* Proporciones de las columnas */
+        th:nth-child(1),
+        tbody td:nth-child(1),
+        tfoot td:nth-child(1) {
+            flex: 1;
+        }
+
+        th:nth-child(2),
+        tbody td:nth-child(2),
+        tfoot td:nth-child(2) {
+            flex: 1;
+        }
+
+        th:nth-child(3),
+        tbody td:nth-child(3),
+        tfoot td:nth-child(3) {
+            flex: 0.8;
+        }
+
+        th:nth-child(4),
+        tbody td:nth-child(4),
+        tfoot td:nth-child(4) {
+            flex: 2.2;
+            /* Descripción más ancha */
+        }
+
+        th:nth-child(5),
+        tbody td:nth-child(5),
+        tfoot td:nth-child(5) {
+            flex: 1.2;
+        }
+
+        th:nth-child(6),
+        tbody td:nth-child(6),
+        tfoot td:nth-child(6) {
+            flex: 1.2;
+        }
+
+        /* 4. Cuerpo de la tabla con fondo gris y scroll interno */
+        tbody {
+            flex: 1;
+            min-height: 0;
+            background-color: #cccccc;
+            display: block;
+            width: 100%;
+            overflow-y: auto;
+        }
+
+        tbody tr {
+            display: flex;
+            width: 100%;
+        }
+
+        tbody td {
+            padding: 8px 5px;
+            border: 1px solid #7b75ca;
+            text-align: center;
+            font-size: 14px;
+            color: #111;
+        }
+
+        /* Filas con datos alternados */
+        tbody tr:nth-child(even) {
+            background-color: #d6e294;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #a1a2e9;
+        }
+
+        /* Pie inferior */
+        #pie {
+            background-color: #e5ec84;
+            text-align: center;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
+
+        #pie h3 {
+            font-size: 15px;
+            color: #111;
+        }
+
+        /* 5. Ventana Modal Centrada */
+        #ventanaModal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 1200px;
+            max-height: 92vh;
+            overflow-y: auto;
+            border: 2px solid #444;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
+            background-color: #fff;
+        }
+
+        #barraSuperiorModal {
+            background-color: #9c9c9c;
+            padding: 12px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: #000;
+        }
+
+        #btCierra {
+            background: none;
+            border: none;
+            color: #cc0000;
+            font-weight: bold;
+            font-size: 24px;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0 6px;
+        }
+
+        #btCierra:hover {
+            color: #ff0000;
+        }
+
+        #encabezadoModalForm {
+            background-color: #edf581;
+            text-align: center;
+            padding: 18px 0;
+        }
+
+        #encabezadoModalForm h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #111;
+        }
+
+        #cuerpoModal {
+            background-color: #9da6f1;
+            padding: 35px 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px 60px;
+        }
+
+        .campo label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #000;
+        }
+
+        .campo input,
+        .campo select {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 16px;
+            border: 1px solid #777;
+            background-color: #ffffff;
+            outline: none;
+        }
+
+        .campo input:focus,
+        .campo select:focus {
+            border-color: #000;
+        }
+
+        #btEnviar {
+            padding: 14px 0;
+            font-size: 18px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            border: 1px solid #777;
+            background-color: #efefef;
+        }
+
+        #btEnviar:hover {
+            background-color: #dfdfdf;
+        }
+
+        #pieModalForm {
+            background-color: #edf581;
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        #pieModalForm h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #111;
+        }
+
+        @media (max-width: 800px) {
+            #cuerpoModal {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Contenedor principal: la tabla con sus botones superiores -->
+    <div id="contenedor" class="contenedorActivo">
+        <div id="encabezado">
+            <h2>Articulos</h2>
+            <div id="botonesEncabezado">
+                <button id="btCargar" type="button">Cargar datos</button>
+                <button id="btVaciar" type="button">Vaciar datos</button>
+                <button id="btCargaForm" type="button">Cargar Form</button>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>CodArt</th>
+                    <th>Familia</th>
+                    <th>UM</th>
+                    <th>Descripción</th>
+                    <th>Fecha Alta</th>
+                    <th>Saldo Stock</th>
+                </tr>
+            </thead>
+
+            <tbody id="tbDatos">
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td id="sumCodArt">sum codArt</td>
+                    <td id="sumFamilia">sum familia</td>
+                    <td id="sumUm">sum um</td>
+                    <td id="sumDescripcion">sum descripcion</td>
+                    <td id="sumFechaAlta">sum fecha alta</td>
+                    <td id="sumSaldoStock">sum saldo Stock: 0</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div id="pie">
+            <h3>Pie</h3>
+        </div>
+    </div>
+
+    <!-- Ventana modal con el formulario de ALTA -->
+    <div id="ventanaModal" class="ventanaModalApagado">
+        <!-- Barra de encabezado del modal con botón X -->
+        <div id="barraSuperiorModal">
+            <span>Encabezado modal</span>
+            <button id="btCierra" type="button">X</button>
+        </div>
+
+        <div id="encabezadoModalForm">
+            <h2>Formulario para ALTA<br>Agregar Artículo</h2>
+        </div>
+
+        <div id="cuerpoModal">
+            <div class="campo">
+                <label for="codArt">codArt:</label>
+                <input type="text" id="codArt" name="codArt" required>
+            </div>
+
+            <div class="campo">
+                <label for="selectFamilia">Familia de artículo:</label>
+                <select id="selectFamilia" name="selectFamilia" required>
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="um">UM:</label>
+                <input type="text" id="um" name="um" value="U">
+            </div>
+
+            <div class="campo">
+                <label for="descripcion">Descripción:</label>
+                <input type="text" id="descripcion" name="descripcion" required>
+            </div>
+
+            <div class="campo">
+                <label for="fechaAlta">Fecha Alta:</label>
+                <input type="date" id="fechaAlta" name="fechaAlta" required>
+            </div>
+
+            <div class="campo">
+                <label for="saldoStock">Saldo stock:</label>
+                <input type="number" id="saldoStock" name="saldoStock" value="0" required>
+            </div>
+
+            <div class="campo" style="grid-column: 1 / -1;">
+                <button id="btEnviar" type="button">ENVIAR</button>
+            </div>
+        </div>
+
+        <div id="pieModalForm">
+            <h3>Pie del formulario</h3>
+        </div>
+    </div>
+
+    <script>
+        // Arreglo en memoria para llevar el total de artículos
+        let articulosCargados = [];
+
+        $(document).ready(function () {
+            // Estado inicial: contenedor activo, modal apagada
+            $('#contenedor').attr("class", "contenedorActivo");
+            $('#ventanaModal').attr("class", "ventanaModalApagado");
+
+            // Cargar select dinámicamente con familias.json
+            creaOpcionesFamilia();
+
+            // 1. Botón Cargar datos
+            $("#btCargar").click(function () {
+                cargarTabla();
+            });
+
+            // 2. Botón Vaciar datos
+            $("#btVaciar").click(function () {
+                $("#tbDatos").empty();
+                articulosCargados = [];
+                actualizarSuma();
+            });
+
+            // 3. Botón Cargar Form (abre la ventana modal)
+            $("#btCargaForm").click(function () {
+                $('#contenedor').attr("class", "contenedorPasivo");
+                $('#ventanaModal').attr("class", "ventanaModalPrendido");
+            });
+
+            // 4. Botón X para cerrar modal
+            $("#btCierra").click(function () {
+                $('#contenedor').attr("class", "contenedorActivo");
+                $('#ventanaModal').attr("class", "ventanaModalApagado");
+            });
+
+
+        });
+
+        // Función para cargar los datos desde articulos.json
+        function cargarTabla() {
+            $("#tbDatos").empty();
+            const objJson = JSON.parse(textoJSONArticulos);
+            articulosCargados = objJson.articulos.slice();
+
+            articulosCargados.forEach(function (argValor) {
+                agregarFilaTabla(argValor);
+            });
+
+            actualizarSuma();
+        }
+
+        // Función auxiliar para agregar una fila en tbody
+        function agregarFilaTabla(argValor) {
+            const objTr = document.createElement("tr");
+
+            const campos = [
+                { campo: "articulos_codArt", valor: argValor.codArt },
+                { campo: "articulos_familia", valor: argValor.familia },
+                { campo: "articulos_um", valor: argValor.um || "-" },
+                { campo: "articulos_descripcion", valor: argValor.descripcion },
+                { campo: "articulos_fechaAlta", valor: argValor.fechaAlta },
+                { campo: "articulos_saldoStock", valor: argValor.saldoStock }
+            ];
+
+            campos.forEach(function (col) {
+                const objTd = document.createElement("td");
+                objTd.setAttribute("campo-dato", col.campo);
+                objTd.innerHTML = col.valor;
+                objTr.appendChild(objTd);
+            });
+
+            document.getElementById("tbDatos").appendChild(objTr);
+        }
+
+        // Función para calcular la sumatoria de saldoStock
+        function actualizarSuma() {
+            let total = 0;
+            articulosCargados.forEach(function (art) {
+                total += parseFloat(art.saldoStock) || 0;
+            });
+            document.getElementById("sumSaldoStock").innerHTML = "Total saldo Stock: " + total;
+        }
+
+        // Carga dinámica de opciones de familias en el select
+        function creaOpcionesFamilia() {
+            try {
+                const objJson = JSON.parse(textoJSONFamilias);
+                objJson.familias.forEach(function (argValor) {
+                    let objOpcion = document.createElement("option");
+                    objOpcion.setAttribute("value", argValor.codFamilia);
+                    objOpcion.innerHTML = argValor.descFamilia;
+                    document.getElementById("selectFamilia").appendChild(objOpcion);
+                });
+            } catch (e) {
+                console.error("Error al cargar familias:", e);
+            }
+        }
+    </script>
+
+</body>
+
+</html>

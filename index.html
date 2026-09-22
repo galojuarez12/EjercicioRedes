@@ -4,23 +4,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programación en Ambiente de Redes</title>
+    <title>Programación en Ambiente de Redes - Menú de Ejercicios</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f7fb;
+            color: #333;
+        }
+
+        /* Estructura del menú */
+        #menu {
+            background-color: #2e518b;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #menu ul li {
+            background-color: #2e518b;
+            position: relative;
+            float: left;
+        }
+
+        #menu ul a {
+            display: block;
+            text-decoration: none;
+            color: #ffffff;
+            padding: 15px 25px;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        #menu ul li a:hover {
+            background-color: #1c3866;
+        }
+
+        /* Submenú desplegable al pasar el cursor */
+        #menu ul ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 280px;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        #menu ul ul li {
+            float: none;
+            width: 100%;
+            background-color: #3d6bb3;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #menu ul ul li:hover {
+            background-color: #24467d;
+        }
+
+        #menu ul ul a {
+            padding: 11px 20px;
+            white-space: nowrap;
+            font-weight: normal;
+            font-size: 14px;
+        }
+
+        #menu ul li:hover>ul {
+            display: block;
+        }
+
+        #menu::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Contenido principal */
+        main {
+            padding: 50px 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        main h1 {
+            color: #1c3866;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        main p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .card-info {
+            margin-top: 30px;
+            background-color: #ffffff;
+            padding: 25px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #2e518b;
+        }
+
+        .card-info h2 {
+            color: #2e518b;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 
 <body>
 
-    <header>
-        <h1>Indice de Ejercicios de la Materia</h1>
-        <nav>
-            <ul>
-                <li><a href="HTML/index.html">HTML</a></li>
-                <li><a href="CSS/index.html">CSS</a></li>
-                <li><a href="JavaScript/JavaScriptParte1/index.html">JavaScript</a></li>
-                <li><a href="PHP/">PHP</a></li>
-                <li><a href="Especiales/">Especiales</a></li>
-            </ul>
-        </nav>
-    </header>
+    <nav id="menu">
+        <ul>
+            <!-- 1. HTML -->
+            <li>
+                <a href="#">HTML</a>
+                <ul>
+                    <li><a href="HTML/EJ1_PreguntasHTTP/index.html">EJ1 - Preguntas HTTP</a></li>
+                    <li><a href="HTML/EJ2_Tablas/index.html">EJ2 - Tablas</a></li>
+                    <li><a href="HTML/EJ3_Formulario/index.html">EJ3 - Formulario</a></li>
+                    <li><a href="HTML/EJ4_IFrame/index.html">EJ4 - IFrame</a></li>
+                </ul>
+            </li>
+
+            <!-- 2. CSS -->
+            <li>
+                <a href="#">CSS</a>
+                <ul>
+                    <li><a href="CSS/CSSParte1/EJ1_StyleEnHeader/index.html">CSS1.1 - StyleEnHeader</a></li>
+                    <li><a href="CSS/CSSParte1/EJ2_SelectoresDeClase/Index.html">CSS1.2 - SelectoresDeClase</a></li>
+                    <li><a href="CSS/CSSParte1/EJ3_StyleEnFile/index.html">CSS1.3 - StyleEnFile</a></li>
+                    <li><a href="CSS/CSSParte1/EJ4_FontSize/index.html">CSS1.4 - FontSize</a></li>
+                    <li><a href="CSS/CSSParte1/EJ5_BackgroundFijo/Index.html">CSS1.5 - BackgroundFijo</a></li>
+                    <li><a href="CSS/CSSParte1/EJ6_CentradoYPadding/index.html">CSS1.6 - CentradoYPadding</a></li>
+                    <li><a href="CSS/CSSParte1/EJ7_DivsEnPila/index.html">CSS1.7 - DivsEnPila</a></li>
+                    <li><a href="CSS/CSSParte1/EJ8_DivsEnFila/index.html">CSS1.8 - DivsEnFila</a></li>
+                    <li><a href="CSS/CSSParte1/EJ9_DivsInternosEnColumnas/index.html">CSS1.9 -
+                            DivsInternosEnColumnas</a></li>
+                    <li><a href="CSS/CSSParte1/EJ10_SelectoresDeEventos/index.html">CSS1.10 - SelectoresDeEventos</a>
+                    </li>
+                    <li><a href="CSS/CSSParte2/CSS1_DivInternosRelativos/index.html">CSS2.1 - Div Internos Relativos</a>
+                    </li>
+                    <li><a href="CSS/CSSParte2/CSS2_DivInternosAbsolutos/index.html">CSS2.2 - Div Internos Absolutos</a>
+                    </li>
+                    <li><a href="CSS/CSSParte2/CSS3_CentradoVerticalCajaFlex/index.html">CSS2.3 - Centrado Vertical
+                            Flex</a></li>
+                    <li><a href="CSS/CSSParte2/CSS4_Menu/index.html">CSS2.4 - Menú Desplegable</a></li>
+                    <li><a href="CSS/CSSParte2/CSS5_FormsRWD/index.html">CSS2.5 - Forms RWD</a></li>
+                    <li><a href="CSS/CSSParte2/CSS6_TablasRWD/index.html">CSS2.6 - Tablas RWD</a></li>
+                    <li><a href="CSS/CSSParte2/CSS7_LayoutBasico/index.html">CSS2.7 - Layout Básico</a></li>
+                </ul>
+            </li>
+
+            <!-- 3. JAVASCRIPT -->
+            <li>
+                <a href="#">JSCRIPT</a>
+                <ul>
+                    <li><a href="JavaScript/JavaScriptParte1/index.html">Índice JavaScript Parte 1</a></li>
+                    <li><a href="JavaScript/JavaScriptParte1/js01_1_sentencias.html">JS 01.1 - Sentencias</a></li>
+                    <li><a href="JavaScript/JavaScriptParte1/js01_2_debugger.html">JS 01.2 - Debugger</a></li>
+                    <li><a href="JavaScript/JavaScriptParte1/js02_comando_en_evento.html">JS 02 - Comando en Evento</a>
+                    </li>
+                    <li><a href="JavaScript/JavaScriptParte1/js03_1_variablesSimples.html">JS 03.1 - Variables
+                            Simples</a></li>
+                    <li><a href="JavaScript/JavaScriptParte1/js03_6_arreglos.html">JS 03.6 - Arreglos</a></li>
+                    <li><a href="JavaScript/JavaScriptParte1/js04_1_operaciones_sobre_input.html">JS 04.1 - Operaciones
+                            s/ Input</a></li>
+                    <li><a href="JavaScript/JavaScriptParte1/js05_1_location.html">JS 05.1 - Location</a></li>
+                    <li><a href="JavaScript/JavaScriptParte1/js06_validacionConKeyUp.html">JS 06 - Validación KeyUp</a>
+                    </li>
+                    <li><a href="JavaScript/JavaScriptParte1/js07_form_abm.html">JS 07 - Formulario ABM</a></li>
+                    <li><a href="JavaScript/JavaScriptParte1/js09_creacion_objetos.html">JS 09 - Creación Objetos</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- 4. ESPECIALES -->
+            <li>
+                <a href="#">ESPECIALES</a>
+                <ul>
+                    <li><a href="Especiales/esp05FormVariableArregloDeObjetos/index.html">esp05 - Formulario Variable de
+                            Objetos</a></li>
+                    <li><a href="Especiales/esp10TablaVariableArregloDeObjetos/index.html">esp10 - Tabla Variable de
+                            Objetos</a></li>
+                    <li><a href="Especiales/esp15VentanaModal/index.html">esp15 - Ventana Modal</a></li>
+                    <li><a href="Especiales/esp20TablaFormulario/index.html">esp20 - Tabla y Formulario Modal</a></li>
+                </ul>
+            </li>
+
+            <!-- 5. PHP -->
+            <li>
+                <a href="#">PHP</a>
+                <ul>
+                    <li><a href="PHP/index.html">Índice PHP</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>Programación en Ambiente de Redes</h1>
+        <p>Alumno: Axel Galo Romero Juarez</p>
+
+
+    </main>
 
 </body>
 

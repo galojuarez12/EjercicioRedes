@@ -1,0 +1,24 @@
+let textoJSONFamilias = `{
+    "familias": [
+        {
+            "codFamilia": "FICCI",
+            "descFamilia": "Ficcion"
+        },
+        {
+            "codFamilia": "TERR0",
+            "descFamilia": "Terror"
+        },
+        {
+            "codFamilia": "BIBLI",
+            "descFamilia": "Bibliografias"
+        },
+        {
+            "codFamilia": "MISTE",
+            "descFamilia": "Misterio"
+        },
+        {
+            "codFamilia": "PAREJ",
+            "descFamilia": "Novelas de Pareja"
+        }
+    ]
+}`;
