@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulario</title>
+<style>
+    label { display: block; }
+    input { display: block; width: 150px; margin-bottom: 8px; }
+    input:focus { background-color: #dddddd; }
+</style>
+</head>
+<body>
+<!-- El atributo name de cada input es el índice con que PHP lo lee en $_GET / $_POST.
+     method="get" envía los datos en la URL; method="post" los envía en el cuerpo del requerimiento. -->
+<form action="./respuesta.php" method="get">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required>
+    <label for="apellido">Apellido:</label>
+    <input type="text" id="apellido" name="apellido" required>
+    <input type="submit" value="Enviar">
+</form>
+<p><a href="../index.html">Volver al índice PHP</a></p>
+</body>
+</html>

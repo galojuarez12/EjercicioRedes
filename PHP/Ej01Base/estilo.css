@@ -1,0 +1,52 @@
+/* Estilos generales */
+body {
+    font-family: "Times New Roman", Times, serif;
+    color: #000000;
+    margin: 15px;
+    background-color: #ffffff;
+}
+
+/* Color azul para los nombres de las variables */
+span.var {
+    color: #0000ff;
+}
+
+/* Recuadros/Banners azules (marquee) */
+p.marquee {
+    background-color: #bfe0f8;
+    border: 1px solid #1c528d;
+    color: #002bb8;
+    font-size: 22px;
+    text-align: center;
+    padding: 6px 12px;
+    margin: 12px 0;
+    font-weight: normal;
+}
+
+/* Tabla del diccionario */
+table.dic {
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+table.dic th,
+table.dic td {
+    border: 1px solid #000080;
+    background-color: #bfe0f8;
+    padding: 5px 10px;
+    text-align: left;
+}
+
+/* Líneas divisorias hr */
+hr {
+    border: 0;
+    border-top: 1px solid #cccccc;
+    margin: 12px 0;
+}
+
+/* Estilo para listas de arreglos */
+ul {
+    margin-top: 5px;
+    margin-bottom: 15px;
+    padding-left: 20px;
+}
