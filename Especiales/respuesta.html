@@ -15,6 +15,26 @@
             color: #111;
         }
 
+        .respuesta {
+            max-width: 500px;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .campo {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+        }
+
+        .campo strong {
+            margin-right: 10px;
+        }
+
         a {
             display: inline-block;
             margin-top: 20px;
@@ -32,7 +52,26 @@
 <body>
 
     <h1>Respuesta</h1>
-    <a href="respuesta.html">Volver al Formulario</a>
+
+    <form class="respuesta">
+        <div class="campo"><strong>ISBN:</strong> <span id="isbn"></span></div>
+        <div class="campo"><strong>Familia:</strong> <span id="familia"></span></div>
+        <div class="campo"><strong>Título:</strong> <span id="titulo"></span></div>
+        <div class="campo"><strong>Fecha alta:</strong> <span id="fecha"></span></div>
+        <div class="campo"><strong>Precio:</strong> <span id="precio"></span></div>
+    </form>
+
+    <a href="esp05FormVariableArregloDeObjetos/index.html">Volver al Formulario</a>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+
+        document.getElementById('isbn').textContent = params.get('ISBN') || '';
+        document.getElementById('familia').textContent = params.get('selectFamilia') || '';
+        document.getElementById('titulo').textContent = params.get('titulo') || '';
+        document.getElementById('fecha').textContent = params.get('fechaAlta') || '';
+        document.getElementById('precio').textContent = params.get('precio') || '';
+    </script>
 
 </body>
 

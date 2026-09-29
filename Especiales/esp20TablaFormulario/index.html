@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Tabla y Formulario</title>
 
-    <!-- Librería Jquery y archivos JSON -->
+    
     <script src="../jquery.js"></script>
     <script src="../articulos.json"></script>
     <script src="../familias.json"></script>
@@ -27,7 +27,7 @@
             overflow: hidden;
         }
 
-        /* Clases de activación y desactivación de la ventana modal */
+       
         div.ventanaModalApagado {
             visibility: hidden;
         }
@@ -46,7 +46,7 @@
             pointer-events: none;
         }
 
-        /* 1. Contenedor principal que ocupa toda la pantalla */
+        
         #contenedor {
             height: 100%;
             width: 100%;
@@ -54,7 +54,7 @@
             flex-direction: column;
         }
 
-        /* 2. Barra superior crema con título y botones a la derecha */
+        
         #encabezado {
             background-color: #e5ec84;
             padding: 10px 20px;
@@ -91,7 +91,7 @@
             background-color: #5f5ce0;
         }
 
-        /* 3. Tabla que ocupa todo el 100% de la altura disponible */
+        
         table {
             width: 100%;
             flex: 1;
@@ -99,7 +99,7 @@
             flex-direction: column;
             border-collapse: collapse;
             min-height: 0;
-            /* Fundamental para el scroll interno en Flexbox */
+           
         }
 
         thead,
@@ -113,7 +113,7 @@
             width: 100%;
         }
 
-        /* Cabecera y Pie de color violeta */
+        
         th,
         tfoot td {
             background-color: #6f66ec;
@@ -170,7 +170,7 @@
             flex: 1.2;
         }
 
-        /* 4. Cuerpo de la tabla con fondo gris y scroll interno */
+        
         tbody {
             flex: 1;
             min-height: 0;
@@ -193,7 +193,7 @@
             color: #111;
         }
 
-        /* Filas con datos alternados */
+        
         tbody tr:nth-child(even) {
             background-color: #d6e294;
         }
@@ -202,7 +202,7 @@
             background-color: #a1a2e9;
         }
 
-        /* Pie inferior */
+        
         #pie {
             background-color: #e5ec84;
             text-align: center;
